@@ -78,4 +78,18 @@ public class JNum
     }
     return new double[0][0][0];
   }
+
+  public static String print2DArray(double[][] arr)
+  {
+    StringBuilder sb = new StringBuilder();
+    for (int i = 0; i < arr.length; i++)
+    {
+      for (int j = 0; j < arr[0].length; j++)
+      {
+        sb.append(String.format("%5.1f  ", arr[i][j]));
+      }
+      sb.append("\n");
+    }
+    return sb.toString();
+  }
 }

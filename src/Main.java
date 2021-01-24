@@ -15,7 +15,6 @@ public class Main
     System.out.println("pi get test " + op.getAttr("pi"));
     System.out.println(op.getAttr("Sin45"));
     //
-    UnitTest_Constant utc = new UnitTest_Constant();
     Agent ag = new Agent(5, 3);
     for (int i = 0; i < ag.getPositions().length; i++)
     {

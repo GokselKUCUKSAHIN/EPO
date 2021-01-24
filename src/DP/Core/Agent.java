@@ -2,6 +2,8 @@ package DP.Core;
 
 import DP.Utils.JNum;
 
+import java.util.Arrays;
+
 public class Agent
 {
 
@@ -11,7 +13,6 @@ public class Agent
   private double fit;
   private double[] lb;
   private double[] ub;
-
 
   public Agent()
   {
@@ -105,4 +106,16 @@ public class Agent
     this.ub = ub;
   }
 
+  public void clip_limits()
+  {
+    for (int i = 0; i < positions.length; i++)
+    {
+      double[] row = positions[i];
+      for (int j = 0; j < row.length; j++)
+      {
+        row[j] = (row[j] < lb[i] ? lb[i] : row[j]);
+        row[j] = (row[j] > ub[i] ? ub[i] : row[j]);
+      }
+    }
+  }
 }
