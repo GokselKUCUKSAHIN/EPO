@@ -2,14 +2,21 @@ package Core;
 
 import Exceptions.AttributeNotFoundException;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Optimizer
 {
 
-  private String name = "Not Specified";
-  private HashMap<String, Double> hyperparams;
+  private String name;
+  private final HashMap<String, Double> hyperparams; // Custom Attribute Holder
   private boolean built = false;
+
+  public Optimizer()
+  {
+    // For Inheritance
+    this("Not Specified");
+  }
 
   public Optimizer(String name)
   {
@@ -27,11 +34,13 @@ public class Optimizer
     return this.toString();
   }
 
+  /*
+  We don't need to Return Whole Hyperparameters i guess
   public HashMap<String, Double> getHyperparams()
   {
     return this.hyperparams;
   }
-
+  */
   public void setHyperparams(Attribute... attribute)
   {
     // for every argument
@@ -60,6 +69,48 @@ public class Optimizer
     }
   }
 
+  public void setBuilt(boolean built)
+  {
+    this.built = built;
+  }
+
+  public boolean isBuilt()
+  {
+    return built;
+  }
+
+  public void build(Attribute... attributes)
+  {
+    if (attributes.length > 0)
+    {
+      // if there is any attributes
+      setHyperparams(attributes);
+      // add them is Hyper Parameters
+    }
+    setBuilt(true);
+    System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
+        getName(), getAttributePairs(hyperparams), isBuilt());
+  }
+
+  private static String getAttributePairs(HashMap<String, Double> hyper)
+  {
+    if (hyper.isEmpty())
+    {
+      return "{ }";
+    }
+    else
+    {
+      StringBuilder sb = new StringBuilder("{ ");
+      hyper.forEach((key, value) -> {
+        sb.append(String.format("'%s': %f, ", key, value));
+      });
+      if (sb.length() > 0)
+      {
+        sb.setLength(sb.length() - 2);
+      }
+      return sb.append(" }").toString();
+    }
+  }
 
   @Override
   public String toString()
