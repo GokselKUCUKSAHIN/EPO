@@ -1,4 +1,6 @@
-import Core.Optimizer;
+package ProjectDP.Optimizers;
+
+import ProjectDP.Core.Optimizer;
 
 public class EPO extends Optimizer
 {

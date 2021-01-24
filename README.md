@@ -1,2 +1,2 @@
-# EPO
-Emperor Penguin Core.Optimizer
+# ProjectDP.Optimizers.EPO
+Emperor Penguin ProjectDP.Core.Optimizer

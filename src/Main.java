@@ -1,11 +1,8 @@
-import Core.Agent;
-import Core.Attribute;
-import Core.Optimizer;
-import Exceptions.AttributeNotFoundException;
-import Utils.JNum;
-
-import java.util.Arrays;
-import java.util.HashMap;
+import ProjectDP.Core.Agent;
+import ProjectDP.Core.Attribute;
+import ProjectDP.Core.Optimizer;
+import ProjectDP.Optimizers.EPO;
+import ProjectDP.Exceptions.AttributeNotFoundException;
 
 public class Main
 {
@@ -17,14 +14,13 @@ public class Main
     op.build(new Attribute("pi", 3.1415), new Attribute("number e", 2.718), new Attribute("Sin45", Math.sin(Math.PI / 4)));
     System.out.println("pi get test " + op.getAttr("pi"));
     System.out.println(op.getAttr("Sin45"));
-    //System.out.println(op.getHyperparams().size());
-
-    Agent ag =new Agent(5,3);
-    for (int i = 0; i < ag.positions.length; i++)
+    //
+    Agent ag = new Agent(5, 3);
+    for (int i = 0; i < ag.getPositions().length; i++)
     {
-      for (int j = 0; j < ag.positions[0].length; j++)
+      for (int j = 0; j < ag.getPositions()[0].length; j++)
       {
-        System.out.printf("%.2f  ", ag.positions[i][j]);
+        System.out.printf("%.2f  ", ag.getPositions()[i][j]);
       }
       System.out.println();
     }

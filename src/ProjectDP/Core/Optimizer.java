@@ -1,8 +1,7 @@
-package Core;
+package ProjectDP.Core;
 
-import Exceptions.AttributeNotFoundException;
+import ProjectDP.Exceptions.AttributeNotFoundException;
 
-import java.util.Arrays;
 import java.util.HashMap;
 
 public abstract class Optimizer
