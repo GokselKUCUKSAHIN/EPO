@@ -1,6 +1,6 @@
-package ProjectDP.Core;
+package DP.Core;
 
-import ProjectDP.Exceptions.AttributeNotFoundException;
+import DP.Exceptions.AttributeNotFoundException;
 
 import java.util.HashMap;
 

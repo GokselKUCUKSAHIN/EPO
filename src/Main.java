@@ -1,9 +1,8 @@
-import ProjectDP.Core.Agent;
-import ProjectDP.Core.Attribute;
-import ProjectDP.Core.Optimizer;
-import ProjectDP.Optimizers.EPO;
-import ProjectDP.Exceptions.AttributeNotFoundException;
-import Test.ProjectDP.Utils.UnitTest_Constant;
+import DP.Core.Agent;
+import DP.Core.Attribute;
+import DP.Core.Optimizer;
+import DP.Optimizers.EPO;
+import DP.Exceptions.AttributeNotFoundException;
 
 public class Main
 {

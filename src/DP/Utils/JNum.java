@@ -1,4 +1,4 @@
-package ProjectDP.Utils;
+package DP.Utils;
 
 import java.util.Arrays;
 

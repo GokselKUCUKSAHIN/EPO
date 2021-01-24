@@ -1,4 +1,4 @@
-package ProjectDP.Exceptions;
+package DP.Exceptions;
 
 public class AttributeNotFoundException extends Exception
 {

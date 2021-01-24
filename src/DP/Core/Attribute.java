@@ -1,4 +1,4 @@
-package ProjectDP.Core;
+package DP.Core;
 
 public class Attribute
 {

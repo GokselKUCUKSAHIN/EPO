@@ -1,6 +1,6 @@
-package ProjectDP.Core;
+package DP.Core;
 
-import ProjectDP.Utils.JNum;
+import DP.Utils.JNum;
 
 public class Agent
 {
