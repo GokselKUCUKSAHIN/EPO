@@ -2,7 +2,7 @@ package DP.Math;
 
 public class Random
 {
-
+  private static final java.util.Random RANDOM = new java.util.Random();
   public static double[] generateBinaryRandomNumber(int size)
   {
     if (size > 1)
@@ -21,6 +21,6 @@ public class Random
 
   public static double getRandomBinaryNumber()
   {
-    return Math.random() < 0.5 ? 0 : 1;
+    return RANDOM.nextBoolean() ? 0 : 1;
   }
 }

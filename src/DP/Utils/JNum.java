@@ -87,11 +87,11 @@ public class JNum
   public static String print2DArray(double[][] arr)
   {
     StringBuilder sb = new StringBuilder();
-    for (int i = 0; i < arr.length; i++)
+    for (double[] doubles : arr)
     {
       for (int j = 0; j < arr[0].length; j++)
       {
-        sb.append(String.format("%6.1f  ", arr[i][j]));
+        sb.append(String.format("%6.1f  ", doubles[j]));
       }
       sb.append("\n");
     }
