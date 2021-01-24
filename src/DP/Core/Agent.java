@@ -117,8 +117,8 @@ public class Agent
         double[] row = positions[i];
         for (int j = 0; j < row.length; j++)
         {
-          row[j] = (row[j] < lb[i] ? lb[i] : row[j]);
-          row[j] = (row[j] > ub[i] ? ub[i] : row[j]);
+          row[j] = Math.max(row[j], lb[i]);
+          row[j] = Math.min(row[j], ub[i]);
         }
       }
     }

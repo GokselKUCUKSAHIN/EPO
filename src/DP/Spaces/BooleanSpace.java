@@ -2,6 +2,7 @@ package DP.Spaces;
 
 import DP.Core.Agent;
 import DP.Core.Space;
+import DP.Math.Random;
 import DP.Utils.JNum;
 
 public class BooleanSpace extends Space
@@ -17,9 +18,14 @@ public class BooleanSpace extends Space
   @Override
   public void initializeAgents()
   {
-    for(Agent agent : getAgents())
+    for (Agent agent : getAgents())
     {
-
+      agent.setLb(getLb()); // TODO TEST THIS
+      agent.setUb(getUb()); // TODO TEST THIS
+      for (int i = 0; i < getN_Variables(); i++)
+      {
+        agent.getPositions()[i] = Random.generateBinaryRandomNumber(agent.getN_Dimensions());
+      }
     }
   }
 }
