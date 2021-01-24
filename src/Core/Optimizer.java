@@ -5,7 +5,7 @@ import Exceptions.AttributeNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
 
-public class Optimizer
+public abstract class Optimizer
 {
 
   private String name;
@@ -94,6 +94,10 @@ public class Optimizer
 
   private static String getAttributePairs(HashMap<String, Double> hyper)
   {
+    // Takes HashMap and Returns like
+    // { 'key1': value1, 'key2': value2, 'key3': value3, ..., 'keyN': valueN }
+    // this
+
     if (hyper.isEmpty())
     {
       return "{ }";
@@ -117,4 +121,8 @@ public class Optimizer
   {
     return this.name;
   }
+
+  // ABSTRACT REGION
+
+  public abstract void update();
 }

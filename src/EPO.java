@@ -6,4 +6,10 @@ public class EPO extends Optimizer
   {
     super(name);
   }
+
+  @Override
+  public void update()
+  {
+    System.out.println("UPDATE");
+  }
 }
