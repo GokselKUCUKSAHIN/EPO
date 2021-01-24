@@ -12,7 +12,7 @@ public class UnitTest_Agent
     my_Agent.setUb(20, 42, 250);
     my_Agent.setLb(5, 12, 19); // check this later.
     System.out.println(JNum.print2DArray(my_Agent.getPositions()));
-    my_Agent.clip_limits();
+    my_Agent.clipLimits();
     System.out.println(JNum.print2DArray(my_Agent.getPositions()));
   }
 }

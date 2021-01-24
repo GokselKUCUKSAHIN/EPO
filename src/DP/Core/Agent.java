@@ -106,7 +106,7 @@ public class Agent
     this.ub = ub;
   }
 
-  public void clip_limits()
+  public void clipLimits()
   {
     if(positions.length == ub.length && positions.length == lb.length)
     {

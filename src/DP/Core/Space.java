@@ -4,7 +4,7 @@ import DP.Utils.JNum;
 
 import java.util.ArrayList;
 
-public class Space
+public abstract class Space
 {
 
   private int n_Agents;
@@ -139,6 +139,78 @@ public class Space
     } else
     {
       System.err.println("`bestAgent` Object is null!"); // TODO Throw Exception here!
+    }
+  }
+
+  public double[] getLb()
+  {
+    return lb;
+  }
+
+  public void setLb(double... lb)
+  {
+    if (lb.length == getN_Variables())
+    {
+      this.lb = lb;
+    } else
+    {
+      System.err.println("`lb` should be the same size as `n_variables`"); // TODO Throw Exception here!
+    }
+  }
+
+  public double[] getUb()
+  {
+    return ub;
+  }
+
+  public void setUb(double... ub)
+  {
+    if (ub.length == getN_Variables())
+    {
+      this.ub = ub;
+    } else
+    {
+      System.err.println("`ub` should be the same size as `n_variables`"); // TODO Throw Exception here!
+    }
+  }
+
+  public boolean isBuilt()
+  {
+    return built;
+  }
+
+  public void setBuilt(boolean built)
+  {
+    this.built = built;
+  }
+
+  public void Build(double[] lb, double[] ub)
+  {
+    setLb(lb);
+    setUb(ub);
+    createAgents();
+    setBuilt(true);
+    System.out.printf("Agents: %d | Size: (%d, %d) | Iterations: %d |\n Lower Bound: %s | Upper Bound: %s | Built: %s.\n",
+        getN_Agents(), getN_Variables(), getN_Dimensions(), getN_Iterations(), getLb(), getUb(), isBuilt()); // TODO Change it with LOG
+  }
+
+  public void createAgents()
+  {
+    ArrayList<Agent> agentList = new ArrayList<>();
+    for (int i = 0; i < getN_Agents(); i++)
+    {
+      agentList.add(new Agent(getN_Variables(), getN_Dimensions()));
+    }
+    setAgents(agentList);
+  }
+
+  public abstract void initializeAgents();
+
+  public void clipLimits()
+  {
+    for(Agent agent : getAgents())
+    {
+      agent.clipLimits();
     }
   }
 }
