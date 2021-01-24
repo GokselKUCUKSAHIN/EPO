@@ -1,5 +1,7 @@
 package DP.Core;
 
+import DP.Exceptions.NonPositiveSizeException;
+import DP.Exceptions.SizeMismatchException;
 import DP.Utils.JNum;
 
 import java.util.Arrays;
@@ -45,7 +47,7 @@ public class Agent
     }
     else
     {
-      System.err.println("`n_Variables` should be > 0"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Variables` should be > 0");
     }
   }
 
@@ -62,7 +64,7 @@ public class Agent
     }
     else
     {
-      System.err.println("`n_Dimensions` should be > 0"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Dimensions` should be > 0");
     }
   }
 
@@ -122,7 +124,7 @@ public class Agent
     }
     else
     {
-      System.err.println("Position array and Boundaries are not compatible!"); // TODO Throw Exception Here
+      throw new SizeMismatchException("Position array and Boundaries are not compatible!");
     }
   }
 }

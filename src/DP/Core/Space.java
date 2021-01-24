@@ -1,5 +1,8 @@
 package DP.Core;
 
+import DP.Exceptions.EmptyArrayException;
+import DP.Exceptions.NonPositiveSizeException;
+import DP.Exceptions.SizeMismatchException;
 import DP.Utils.JNum;
 
 import java.util.ArrayList;
@@ -52,7 +55,7 @@ public abstract class Space
       this.n_Agents = n_Agents;
     } else
     {
-      System.err.println("`n_Agents` should be > 0"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Agents` should be > 0");
     }
   }
 
@@ -68,7 +71,7 @@ public abstract class Space
       this.n_Variables = n_Variables;
     } else
     {
-      System.err.println("`n_Variables` should be > 0'"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Variables` should be > 0");
     }
   }
 
@@ -84,7 +87,7 @@ public abstract class Space
       this.n_Dimensions = n_Dimensions;
     } else
     {
-      System.err.println("`n_Dimensions` should be > 0"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Dimensions` should be > 0");
     }
   }
 
@@ -100,7 +103,7 @@ public abstract class Space
       this.n_Iterations = n_Iterations;
     } else
     {
-      System.err.println("`n_Iterations` should be > 0"); // TODO Throw Exception here!
+      throw new NonPositiveSizeException("`n_Iterations` should be > 0");
     }
   }
 
@@ -118,11 +121,11 @@ public abstract class Space
         this.agents = agents;
       } else
       {
-        System.err.println("`agents` list is empty!"); // TODO Throw Exception here!
+        throw new EmptyArrayException("`agents` List is empty!");
       }
     } else
     {
-      System.err.println("`agents` List is null!"); // TODO Throw Exception here!
+      throw new NullPointerException("`agents` List is null!");
     }
   }
 
@@ -138,7 +141,7 @@ public abstract class Space
       this.bestAgent = bestAgent;
     } else
     {
-      System.err.println("`bestAgent` Object is null!"); // TODO Throw Exception here!
+      throw new NullPointerException("`bestAgent` Object is null!");
     }
   }
 
@@ -154,7 +157,7 @@ public abstract class Space
       this.lb = lb;
     } else
     {
-      System.err.println("`lb` should be the same size as `n_variables`"); // TODO Throw Exception here!
+      throw new SizeMismatchException("`lb` should be the same size as `n_variables`");
     }
   }
 
@@ -170,7 +173,7 @@ public abstract class Space
       this.ub = ub;
     } else
     {
-      System.err.println("`ub` should be the same size as `n_variables`"); // TODO Throw Exception here!
+      throw new SizeMismatchException("`ub` should be the same size as `n_variables`");
     }
   }
 
@@ -208,7 +211,7 @@ public abstract class Space
 
   public void clipLimits()
   {
-    for(Agent agent : getAgents())
+    for (Agent agent : getAgents())
     {
       agent.clipLimits();
     }
