@@ -36,11 +36,8 @@ public abstract class Space
     this.setN_Dimensions(n_Dimensions);
     this.setN_Iterations(n_Iterations);
     //
-    this.built = false;
-    this.lb = JNum.zeros(n_Variables);
-    this.ub = JNum.ones(n_Variables);
-    this.bestAgent = new Agent();
-    // Agent Array ?
+    setBuilt(false);
+    setBestAgent(new Agent());
   }
 
   public int getN_Agents()
