@@ -88,32 +88,9 @@ public abstract class Optimizer
     }
     setBuilt(true);
     System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
-        getName(), getAttributePairs(hyperparams), isBuilt());
+        getName(), Attribute.getPairs(hyperparams), isBuilt());
   }
 
-  private static String getAttributePairs(HashMap<String, Double> hyper)
-  {
-    // Takes HashMap and Returns like
-    // { 'key1': value1, 'key2': value2, 'key3': value3, ..., 'keyN': valueN }
-    // this
-
-    if (hyper.isEmpty())
-    {
-      return "{ }";
-    }
-    else
-    {
-      StringBuilder sb = new StringBuilder("{ ");
-      hyper.forEach((key, value) -> {
-        sb.append(String.format("'%s': %f, ", key, value));
-      });
-      if (sb.length() > 0)
-      {
-        sb.setLength(sb.length() - 2);
-      }
-      return sb.append(" }").toString();
-    }
-  }
 
   @Override
   public String toString()
@@ -122,6 +99,10 @@ public abstract class Optimizer
   }
 
   // ABSTRACT REGION
-
   public abstract void update();
+
+  public void evaluate()
+  {
+
+  }
 }
