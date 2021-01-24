@@ -108,14 +108,21 @@ public class Agent
 
   public void clip_limits()
   {
-    for (int i = 0; i < positions.length; i++)
+    if(positions.length == ub.length && positions.length == lb.length)
     {
-      double[] row = positions[i];
-      for (int j = 0; j < row.length; j++)
+      for (int i = 0; i < positions.length; i++)
       {
-        row[j] = (row[j] < lb[i] ? lb[i] : row[j]);
-        row[j] = (row[j] > ub[i] ? ub[i] : row[j]);
+        double[] row = positions[i];
+        for (int j = 0; j < row.length; j++)
+        {
+          row[j] = (row[j] < lb[i] ? lb[i] : row[j]);
+          row[j] = (row[j] > ub[i] ? ub[i] : row[j]);
+        }
       }
+    }
+    else
+    {
+      System.err.println("Position array and Boundaries are not compatible!"); // TODO Throw Exception Here
     }
   }
 }
