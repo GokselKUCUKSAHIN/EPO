@@ -194,7 +194,9 @@ public abstract class Space
     createAgents();
     setBuilt(true);
     System.out.printf("Agents: %d | Size: (%d, %d) | Iterations: %d |\n Lower Bound: %s | Upper Bound: %s | Built: %s.\n",
-        getN_Agents(), getN_Variables(), getN_Dimensions(), getN_Iterations(), getLb(), getUb(), isBuilt()); // TODO Change it with LOG
+        getN_Agents(), getN_Variables(), getN_Dimensions(),
+        getN_Iterations(), JNum.printArray(getLb()), JNum.printArray(getUb()),
+        isBuilt()); // TODO Change it with LOG
   }
 
   public void createAgents()

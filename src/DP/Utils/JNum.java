@@ -79,6 +79,11 @@ public class JNum
     return new double[0][0][0];
   }
 
+  public static String printArray(double[] arr)
+  {
+    return Arrays.toString(arr);
+  }
+
   public static String print2DArray(double[][] arr)
   {
     StringBuilder sb = new StringBuilder();
@@ -86,7 +91,7 @@ public class JNum
     {
       for (int j = 0; j < arr[0].length; j++)
       {
-        sb.append(String.format("%5.1f  ", arr[i][j]));
+        sb.append(String.format("%6.1f  ", arr[i][j]));
       }
       sb.append("\n");
     }
