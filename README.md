@@ -1,2 +1,2 @@
 # EPO
-Emperor Penguin Optimizer
+Emperor Penguin Core.Optimizer
