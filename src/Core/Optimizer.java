@@ -8,15 +8,13 @@ public class Optimizer
 {
 
   private String name = "Not Specified";
-
-  //private String hyperparams = null; // TODO: Need to be upgrade to Data Type.
   private HashMap<String, Double> hyperparams;
   private boolean built = false;
 
   public Optimizer(String name)
   {
     this.setName(name);
-    this.hyperparams = new HashMap<String, Double>();
+    this.hyperparams = new HashMap<>();
   }
 
   public void setName(String name)
