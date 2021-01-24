@@ -45,7 +45,7 @@ public class Agent
     }
     else
     {
-      System.err.println("`n_Variables` should be > 0");
+      System.err.println("`n_Variables` should be > 0"); // TODO Throw Exception here!
     }
   }
 
@@ -62,7 +62,7 @@ public class Agent
     }
     else
     {
-      System.err.println("`n_Dimensions` should be > 0");
+      System.err.println("`n_Dimensions` should be > 0"); // TODO Throw Exception here!
     }
   }
 
