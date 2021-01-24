@@ -91,7 +91,7 @@ public class Agent
     return lb;
   }
 
-  public void setLb(double[] lb)
+  public void setLb(double...lb)
   {
     this.lb = lb;
   }
@@ -101,7 +101,7 @@ public class Agent
     return ub;
   }
 
-  public void setUb(double[] ub)
+  public void setUb(double...ub)
   {
     this.ub = ub;
   }
