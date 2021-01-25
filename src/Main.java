@@ -1,16 +1,27 @@
-import DP.Core.Agent;
-import DP.Core.Attribute;
-import DP.Core.Optimizer;
-import DP.Core.Space;
-import DP.Optimizers.EPO;
+import DP.Core.*;
 import DP.Exceptions.AttributeNotFoundException;
-import DP.Spaces.BooleanSpace;
+import Test.DP.Experimental.TestMethod;
 
 public class Main
 {
 
-  public static void main(String[] args) throws AttributeNotFoundException
+  public static void main(String[] args) throws AttributeNotFoundException, ClassNotFoundException
   {
+    StorableMethod s = new TestMethod();
+    System.out.println(s.apply(new Agent(32,123)));
+
+
+
+    //Object num = new Agent();
+    //System.out.println(num.getClass());
+    /*
+    Object something = new Integer(123);
+    String theType = "java.lang.Number";
+
+    Class<? extends Number> theClass = Class.forName(theType).asSubclass(Number.class);
+    Number obj = theClass.cast(something);*/
+
+    /*
     Space test = new BooleanSpace(1,2,3,4);
     Optimizer op = new EPO("Test Algorithm");
     System.out.println(op.getName() + " Tring to test :)");
@@ -26,6 +37,6 @@ public class Main
         System.out.printf("%.2f  ", ag.getPositions()[i][j]);
       }
       System.out.println();
-    }
+    }*/
   }
 }
