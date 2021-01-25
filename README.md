@@ -1,2 +1,6 @@
-# DP.Optimizers.EPO
-Emperor Penguin DP.Core.Optimizer
+# EPO
+Emperor Penguin Optimizer
+
+# 🚧Still Under Development🚧
+
+## Working on [**Take1**](https://github.com/GokselKUCUKSAHIN/EPO/tree/Take1 "Take1") Branch
