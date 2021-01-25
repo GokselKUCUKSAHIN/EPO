@@ -3,11 +3,11 @@ package Test.DP.Experimental;
 import DP.Core.Agent;
 import DP.Core.StorableMethod;
 
-public class TestMethod implements StorableMethod
+public class TestMethod extends StorableMethod
 {
 
   @Override
-  public Object apply(Object...parameters)
+  public Object call(Object...parameters)
   {
     if(parameters.length == 2)
     {

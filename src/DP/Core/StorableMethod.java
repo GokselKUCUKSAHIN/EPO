@@ -1,7 +1,6 @@
 package DP.Core;
 
-public interface StorableMethod
+public abstract class StorableMethod
 {
-
-  Object apply(Object... parameters);
+  public abstract Object call(Object... parameters);
 }

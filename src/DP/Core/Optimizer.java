@@ -15,8 +15,8 @@ public abstract class Optimizer
   {
     // For Inheritance
     this("Not Specified");
-  }
 
+  }
   public Optimizer(String name)
   {
     this.setName(name);
