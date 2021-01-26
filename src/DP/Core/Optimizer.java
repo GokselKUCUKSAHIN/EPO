@@ -101,7 +101,7 @@ public abstract class Optimizer
   // ABSTRACT REGION
   public abstract void update();
 
-  public void evaluate(Space space, Function function)
+  public void evaluate(Space space, Func func)
   {
 
   }

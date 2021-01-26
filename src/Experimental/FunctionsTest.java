@@ -15,7 +15,6 @@ public class FunctionsTest
 
     System.out.println(functions.get(0).apply(5.0));
 
-
   }
 
   public static void FunctionalInterfaceOp1()
@@ -27,6 +26,7 @@ public class FunctionsTest
     int len = getLen.apply(s);
     System.out.println(len);
   }
+
   public static void FunctionalInterfaceOp2()
   {
     Function<Double[], Double> multArray = (Double[] s) -> {
@@ -54,8 +54,8 @@ public class FunctionsTest
   public static void doubleColonOp()
   {
     double[] myArray = new double[]{1, 2, 3, 4, 5};
-    Function<double[], Boolean> staticChkArr = FunctionsTest::checkArraySimple;
-    System.out.println(staticChkArr.apply(myArray));
+    Function<double[], Boolean> chkArr = FunctionsTest::checkArraySimple;
+    System.out.println(chkArr.apply(myArray));
   }
 
   public static boolean checkArraySimple(double[] arr)
@@ -65,6 +65,6 @@ public class FunctionsTest
 
   public static double sqr(double in)
   {
-    return in*in;
+    return in * in;
   }
 }

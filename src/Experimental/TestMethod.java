@@ -1,7 +1,6 @@
 package Experimental;
 
 import DP.Core.Agent;
-import DP.Core.StorableMethod;
 
 public class TestMethod extends StorableMethod
 {
