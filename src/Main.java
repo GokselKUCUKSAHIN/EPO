@@ -1,13 +1,34 @@
 import DP.Core.StorableMethod;
 import DP.Utils.JNum;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.function.Function;
+
 public class Main
 {
 
   public static void main(String[] args)
   {
-    // TODO Implement Main
-    double[][] testArray = JNum.ones(3,5);
-    System.out.println(JNum.print2DArray(testArray));
+
   }
+
+
 }
+
+ /*
+    StorableMethod sqr = (arg1, arg2) -> {
+      try
+      {
+        double[] dparam = Arrays.asList(params).toArray(new double[2]);
+        if (dparam.length == 2)
+        {
+          return params[0] * params[0] + params[1] * params[1];
+        }
+      }
+      catch (Exception ex)
+      {
+        throw ex;
+      }
+      return null;
+    }*/

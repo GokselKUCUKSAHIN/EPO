@@ -1,4 +1,4 @@
-package Test.DP.Experimental;
+package Experimental;
 
 public class Castable
 {

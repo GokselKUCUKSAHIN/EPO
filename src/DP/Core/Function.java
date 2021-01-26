@@ -105,7 +105,7 @@ public class Function
     pointer = new StorableMethod()
     {
       @Override
-      public Object call(Object... parameters)
+      public StorableMethod call(Object... parameters)
       {
         return null;
       }

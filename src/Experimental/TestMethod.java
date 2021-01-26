@@ -1,4 +1,4 @@
-package Test.DP.Experimental;
+package Experimental;
 
 import DP.Core.Agent;
 import DP.Core.StorableMethod;
