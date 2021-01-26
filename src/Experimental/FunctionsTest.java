@@ -1,5 +1,7 @@
 package Experimental;
 
+import DP.Core.Func;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -11,10 +13,11 @@ public class FunctionsTest
   {
     ArrayList<Function<Double, Double>> functions = new ArrayList<>();
     functions.add(FunctionsTest::sqr);
-
-
-    System.out.println(functions.get(0).apply(5.0));
-
+//    Function<Double, Double> sqrFunc = FunctionsTest::sqr;
+    Function<Double[], Boolean> checkArray = (Double[] arr) -> (arr[0] + arr[1]) < 10;
+//    System.out.println(functions.get(0).apply(5.0));
+    System.out.println(functions.get(0).getClass().getName());
+    System.out.println(checkArray.getClass().getName());
   }
 
   public static void FunctionalInterfaceOp1()

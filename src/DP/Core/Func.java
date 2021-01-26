@@ -1,5 +1,8 @@
 package DP.Core;
 
+import DP.Exceptions.SizeMismatchException;
+import DP.Utils.JNum;
+
 import java.util.ArrayList;
 import java.util.function.Function;
 
@@ -10,12 +13,16 @@ public class Func
   private double penalty;
   private boolean built;
   private Function<double[], Double> pointer;
-  //private HashMap<String, Function<double[], Double>> constraints;
-  ArrayList<Function<double[], Double>> constraints;
+  private Function<double[], Double> prevPointer;
+  private String pointerName;
+  private ArrayList<Function<double[], Double>> constraints;
+  //
+  public static final Function<double[], Double> CHECK = Func::placeHolderFunction; //check function;
+  public static final String checkPName = CHECK.getClass().getName(); // test string
 
   public Func()
   {
-    this(null, null, 0);
+    this(Func::placeHolderFunction, null, 0);
   }
 
   public Func(Function<double[], Double> pointer, ArrayList<Function<double[], Double>> constraints, double penalty)
@@ -28,8 +35,21 @@ public class Func
     {
       this.constraints = constraints;
     }
-    setBuilt(true);
+    setPenalty(penalty);
     setPointer(pointer);
+    prevPointer = pointer;
+    createPointer(pointer);
+    setBuilt(true);
+  }
+
+  public double apply(double[] array)
+  {
+    return this.pointer.apply(array);
+  }
+
+  private static double placeHolderFunction(double[] arr)
+  {
+    return 0;
   }
 
   public Function<double[], Double> getPointer()
@@ -39,7 +59,42 @@ public class Func
 
   public void setPointer(Function<double[], Double> pointer)
   {
-    this.pointer = pointer;
+    if (pointer != null)
+    {
+      this.prevPointer = this.pointer;
+      this.pointer = pointer;
+      setPointerName(pointer);
+    } else
+    {
+      throw new NullPointerException("`Pointer` is null");
+    }
+  }
+
+  public void setPointerName(String pointerName)
+  {
+    if (pointerName == null || pointerName.equals("") || pointerName.length() < 3)
+    {
+      throw new SizeMismatchException("`pointerName` need to more than 3 char and not empty nor null");
+    } else
+    {
+      this.pointerName = pointerName;
+    }
+  }
+
+  public String getPointerName()
+  {
+    return this.pointerName;
+  }
+
+
+  private static String setPointerName(Function<double[], Double> pointer)
+  {
+    String pName = pointer.getClass().getName();
+    if (pName.equals(Func.checkPName))
+    {
+      pName = "callable";
+    }
+    return pName;
   }
 
   public ArrayList<Function<double[], Double>> getConstraints()
@@ -50,6 +105,17 @@ public class Func
   public void setConstraints(ArrayList<Function<double[], Double>> constraints)
   {
     this.constraints = constraints;
+  }
+
+  public void pushConstraints(Function<double[], Double> constraint)
+  {
+    if (constraint != null)
+    {
+      this.getConstraints().add(constraint);
+    } else
+    {
+      throw new NullPointerException("`constraint` function is null");
+    }
   }
 
   public String getName()
@@ -95,30 +161,33 @@ public class Func
 
   private void createPointer(Function<double[], Double> pointer)
   {
-    if(pointer != null)
-    {
-      setPointer(this::constrain_pointer);
-    }
-    else
-    {
-      throw new NullPointerException("`Pointer` is null");
-    }
+    setPointer(this::constrain_pointer);
+    setPointerName("constrain_pointer");
+//    if (pointer != null)
+//    {
+//
+//    } else
+//    {
+//      throw new NullPointerException("`Pointer` is null");
+//    }
   }
-
+  static int i = 1;
   private double constrain_pointer(double[] array)
   {
-     double fitness = this.pointer.apply(array);
-     for (Function<double[], Double> constraint : constraints)
-     {
-       if(constraint.apply(array) != 0) // TODO idk! Check here later
-       {
-          continue; // TODO Fix later
-       }
-       else
-       {
-         fitness += this.penalty * fitness;
-       }
-     }
-     return fitness;
+    System.out.println(i++);
+    double fitness = this.prevPointer.apply(array);
+    for (Function<double[], Double> constraint : constraints)
+    {
+      if (constraint.apply(array) == JNum.DOUBLE_TRUE) // TODO idk! Check here later
+      {
+        continue; // TODO Fix later
+      }
+      else
+      {
+        fitness += this.penalty * fitness;
+
+      }
+    }
+    return fitness;
   }
 }

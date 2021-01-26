@@ -1,13 +1,15 @@
 package Test.DP;
 
 import Test.DP.Core.UnitTest_Agent;
+import Test.DP.Core.UnitTest_Func;
 
 public class TestMain
 {
 
   public static void main(String[] args)
   {
-    UnitTest_Agent.testClipping();
+    //UnitTest_Agent.testClipping();
+    UnitTest_Func.doTest();
   }
 }
 
