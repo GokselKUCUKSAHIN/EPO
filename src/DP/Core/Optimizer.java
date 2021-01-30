@@ -3,6 +3,7 @@ package DP.Core;
 import DP.Exceptions.AttributeNotFoundException;
 import DP.Exceptions.BuildException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public abstract class Optimizer
@@ -100,11 +101,14 @@ public abstract class Optimizer
 
   public void build(Attribute... attributes)
   {
-    if (attributes.length > 0)
+    if(attributes != null)
     {
-      // if there is any attributes
-      setHyperparams(attributes);
-      // add them is Hyper Parameters
+      if (attributes.length > 0)
+      {
+        // if there is any attributes
+        setHyperparams(attributes);
+        // add them is Hyper Parameters
+      }
     }
     setBuilt(true);
     System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
@@ -131,7 +135,7 @@ public abstract class Optimizer
   }
 
   // ABSTRACT REGION
-  public abstract void update();
+  public abstract void update(ArrayList<Agent> agents, Agent bestAgent, int iteration, int nIteration);
 
   public abstract void run(Space space, Func function, boolean storeBestOnly, Func preEvalution);
 }

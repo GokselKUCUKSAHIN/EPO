@@ -1,8 +1,11 @@
 package Test.DP.Core;
 
+import DP.Core.Agent;
 import DP.Core.Func;
 import DP.Core.Optimizer;
 import DP.Core.Space;
+
+import java.util.ArrayList;
 
 public class UnitTest_Optimizer
 {
@@ -19,7 +22,7 @@ class TestOptimizer extends Optimizer
 {
 
   @Override
-  public void update()
+  public void update(ArrayList<Agent> agents, Agent bestAgent, int iteration, int nIteration)
   {
 
   }

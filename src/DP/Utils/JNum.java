@@ -131,17 +131,17 @@ public class JNum
   public static double[][] getGrid(double step, double[] lb, double[] ub)
   {
     // Check Step
-    if(step <= 0)
+    if (step <= 0)
     {
       throw new NonPositiveSizeException("`step` shoud be greater than 0");
     }
     // Check Bound sizes
-    if(lb.length != lb.length)
+    if (lb.length != lb.length)
     {
       throw new SizeMismatchException("`lowerBound` and `upperBound` arrays should be same size");
     }
     // Validate Bounds
-    if(!checkBounds(lb, ub))
+    if (!checkBounds(lb, ub))
     {
       return new double[0][0];
     }
@@ -154,22 +154,95 @@ public class JNum
 
   private static boolean checkBounds(double[] lowerBound, double[] upperBound)
   {
-    if(lowerBound.length == upperBound.length)
+    if (lowerBound.length == upperBound.length)
     {
       for (int i = 0; i < lowerBound.length; i++)
       {
         double lowerValue = lowerBound[i];
         double upperValue = upperBound[i];
-        if(lowerBound == upperBound || Math.max(lowerValue, upperValue) == lowerValue)
+        if (lowerBound == upperBound || Math.max(lowerValue, upperValue) == lowerValue)
         {
           return false;
         }
       }
       return true;
-    }
-    else
+    } else
     {
       return false;
     }
+  }
+
+  public static double[][][] fabs(double[][][] arr)
+  {
+    if (arr != null)
+    {
+      int row = arr.length;
+      int column = arr[0].length;
+      int dimension = arr[0][0].length;
+      if (row < 1 || column < 1 || dimension < 1)
+      {
+        return new double[0][0][0];
+      } else
+      {
+        double[][][] absArr = new double[row][column][dimension];
+        for (int i = 0; i < row; i++)
+        {
+          for (int j = 0; j < column; j++)
+          {
+            for (int k = 0; k < dimension; k++)
+            {
+              absArr[i][j][k] = Math.abs(arr[i][j][k]);
+            }
+          }
+        }
+        return absArr;
+      }
+    }
+    throw new NullPointerException("`Array` is null");
+  }
+
+  public static double[][] fabs(double[][] arr)
+  {
+    if (arr != null)
+    {
+      int row = arr.length;
+      int column = arr[0].length;
+      if (row < 1 || column < 1)
+      {
+        return new double[0][0];
+      } else
+      {
+        double[][] absArr = new double[row][column];
+        for (int i = 0; i < row; i++)
+        {
+          for (int j = 0; j < column; j++)
+          {
+            absArr[i][j] = Math.abs(arr[i][j]);
+          }
+        }
+        return absArr;
+      }
+    }
+    throw new NullPointerException("`Array` is null");
+  }
+
+  public static double[] fabs(double[] arr)
+  {
+    if (arr != null)
+    {
+      if (arr.length < 1)
+      {
+        return new double[0];
+      } else
+      {
+        double[] absArr = new double[arr.length];
+        for (int i = 0; i < absArr.length; i++)
+        {
+          absArr[i] = Math.abs(arr[i]);
+        }
+        return absArr;
+      }
+    }
+    throw new NullPointerException("`Array` is null");
   }
 }
