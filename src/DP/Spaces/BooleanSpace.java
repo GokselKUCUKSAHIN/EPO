@@ -13,6 +13,7 @@ public class BooleanSpace extends Space
     super(n_Agents, n_Variables, n_Dimensions, n_Iterations);
     // Build with initial Lower and Upper Boundaries
     this.Build(JNum.zeros(getN_Variables()), JNum.ones(getN_Variables()));
+    this.initializeAgents();
   }
 
   @Override

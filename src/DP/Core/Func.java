@@ -12,12 +12,12 @@ public class Func
   private String name = "";
   private double penalty;
   private boolean built;
-  private Function<double[], Double> pointer;
-  private Function<double[], Double> prevPointer;
+  private Function<double[][], Double> pointer;
+  private Function<double[][], Double> prevPointer;
   private String pointerName;
-  private ArrayList<Function<double[], Double>> constraints;
+  private ArrayList<Function<double[][], Double>> constraints;
   //
-  public static final Function<double[], Double> CHECK = Func::placeHolderFunction; //check function;
+  public static final Function<double[][], Double> CHECK = Func::placeHolderFunction; //check function;
   public static final String checkPName = CHECK.getClass().getName(); // test string
 
   public Func()
@@ -25,14 +25,14 @@ public class Func
     this(Func::placeHolderFunction);
   }
 
-  public Func(Function<double[], Double> pointer)
+  public Func(Function<double[][], Double> pointer)
   {
     this(pointer, new ArrayList<>(), 0.0);
   }
 
-  public Func(Function<double[], Double> pointer, Function<double[], Double> constraint, double penalty)
+  public Func(Function<double[][], Double> pointer, Function<double[][], Double> constraint, double penalty)
   {
-    this(pointer, new ArrayList<Function<double[], Double>>()
+    this(pointer, new ArrayList<Function<double[][], Double>>()
     {
       {
         add(constraint);
@@ -40,7 +40,7 @@ public class Func
     }, penalty);
   }
 
-  public Func(Function<double[], Double> pointer, ArrayList<Function<double[], Double>> constraints, double penalty)
+  public Func(Function<double[][], Double> pointer, ArrayList<Function<double[][], Double>> constraints, double penalty)
   {
     setName(this.getClass().toString());
     if (constraints == null)
@@ -57,22 +57,22 @@ public class Func
     setBuilt(true);
   }
 
-  public double apply(double[] array)
+  public double apply(double[][] array)
   {
     return this.pointer.apply(array);
   }
 
-  private static double placeHolderFunction(double[] arr)
+  private static double placeHolderFunction(double[][] arr)
   {
     return 0;
   }
 
-  public Function<double[], Double> getPointer()
+  public Function<double[][], Double> getPointer()
   {
     return pointer;
   }
 
-  public void setPointer(Function<double[], Double> pointer)
+  public void setPointer(Function<double[][], Double> pointer)
   {
     if (pointer != null)
     {
@@ -102,7 +102,7 @@ public class Func
   }
 
 
-  private static String setPointerName(Function<double[], Double> pointer)
+  private static String setPointerName(Function<double[][], Double> pointer)
   {
     String pName = pointer.getClass().getName();
     if (pName.equals(Func.checkPName))
@@ -112,17 +112,17 @@ public class Func
     return pName;
   }
 
-  public ArrayList<Function<double[], Double>> getConstraints()
+  public ArrayList<Function<double[][], Double>> getConstraints()
   {
     return this.constraints;
   }
 
-  public void setConstraints(ArrayList<Function<double[], Double>> constraints)
+  public void setConstraints(ArrayList<Function<double[][], Double>> constraints)
   {
     this.constraints = constraints;
   }
 
-  public void pushConstraints(Function<double[], Double> constraint)
+  public void pushConstraints(Function<double[][], Double> constraint)
   {
     if (constraint != null)
     {
@@ -174,7 +174,7 @@ public class Func
   }
 
 
-  private void createPointer(Function<double[], Double> pointer)
+  private void createPointer(Function<double[][], Double> pointer)
   {
     if (pointer != null)
     {
@@ -186,17 +186,16 @@ public class Func
     }
   }
 
-  private double constrain_pointer(double[] array)
+  private double constrain_pointer(double[][] array)
   {
     double fitness = this.prevPointer.apply(array);
-    for (Function<double[], Double> constraint : constraints)
+    for (Function<double[][], Double> constraint : constraints)
     {
       if (constraint.apply(array) != JNum.TRUE)
       {
         fitness += this.penalty * fitness;
       }
     }
-    //System.out.println(i + " fitness " + fitness);
     return fitness;
   }
 }

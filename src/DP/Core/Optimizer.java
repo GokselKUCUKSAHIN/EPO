@@ -1,6 +1,7 @@
 package DP.Core;
 
 import DP.Exceptions.AttributeNotFoundException;
+import DP.Exceptions.BuildException;
 
 import java.util.HashMap;
 
@@ -15,17 +16,23 @@ public abstract class Optimizer
   {
     // For Inheritance
     this("Not Specified");
-
   }
+
   public Optimizer(String name)
   {
-    this.setName(name);
-    this.hyperparams = new HashMap<>();
+    setName(name);
+    hyperparams = new HashMap<>();
   }
 
   public void setName(String name)
   {
-    this.name = name;
+    if (name.equals(""))
+    {
+      throw new BuildException("`Algorithm name` can not be Empty String");
+    } else
+    {
+      this.name = name;
+    }
   }
 
   public String getName()
@@ -54,7 +61,12 @@ public abstract class Optimizer
     }
   }
 
-  public double getAttr(String name) throws AttributeNotFoundException
+  public int getAttrCount()
+  {
+    return this.hyperparams.size();
+  }
+
+  public double getAttr(String name)
   {
     // Check key into HashMap if not
     //Object hold = this.hyperparams.get(name);
@@ -65,6 +77,14 @@ public abstract class Optimizer
     } else
     {
       throw new AttributeNotFoundException(String.format("'%s' attribute not exist in %s", name, this.toString()));
+    }
+  }
+
+  public void setAttr(String name, double value)
+  {
+    if (!name.equals(""))
+    {
+      hyperparams.put(name, value);
     }
   }
 
@@ -88,9 +108,8 @@ public abstract class Optimizer
     }
     setBuilt(true);
     System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
-        getName(), Attribute.getPairs(hyperparams), isBuilt());
+        getName(), Attribute.getPairs(hyperparams), isBuilt()); // TODO Change this to LOG
   }
-
 
   @Override
   public String toString()
@@ -98,11 +117,21 @@ public abstract class Optimizer
     return this.name;
   }
 
+  public void evaluate(Space space, Func func)
+  {
+    for (Agent agent : space.getAgents())
+    {
+      agent.setFit(func.apply(agent.getPositions()));
+      if (agent.getFit() < space.getBestAgent().getFit())
+      {
+        space.getBestAgent().setPositions(agent.getPositions());
+        space.getBestAgent().setFit(agent.getFit());
+      }
+    }
+  }
+
   // ABSTRACT REGION
   public abstract void update();
 
-  public void evaluate(Space space, Func func)
-  {
-
-  }
+  public abstract void run(Space space, Func function, boolean storeBestOnly, Func preEvalution);
 }

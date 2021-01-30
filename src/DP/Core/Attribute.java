@@ -35,5 +35,4 @@ public class Attribute
       return sb.append(" }").toString();
     }
   }
-
 }

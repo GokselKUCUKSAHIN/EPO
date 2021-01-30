@@ -1,7 +1,5 @@
 package Experimental;
 
-import DP.Core.Func;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Function;
@@ -23,7 +21,7 @@ public class FunctionsTest
   public static void FunctionalInterfaceOp1()
   {
     Function<Integer, String> func = (Integer e) -> e + "";
-    Function<String, Integer> getLen = (String s) -> s.length();
+    Function<String, Integer> getLen = String::length;
 
     String s = func.apply(666);
     int len = getLen.apply(s);
