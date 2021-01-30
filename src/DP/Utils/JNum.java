@@ -95,10 +95,23 @@ public class JNum
     {
       for (int j = 0; j < arr[0].length; j++)
       {
-        sb.append(String.format("%6.4f  ", doubles[j]));
+        sb.append(String.format("%6.5f  ", doubles[j]));
       }
       sb.append("\n");
     }
     return sb.toString();
   }
+
+  public static String print3DArray(double[][][] arr)
+  {
+    StringBuilder sb = new StringBuilder();
+    int i = 0;
+    for (double[][] arr2d : arr)
+    {
+      sb.append(String.format("\nDimension %d\n~~~~~~~~~~~~~\n", i++));
+      sb.append(print2DArray(arr2d));
+    }
+    return sb.toString();
+  }
+
 }
