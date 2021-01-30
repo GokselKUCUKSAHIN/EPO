@@ -103,6 +103,9 @@ public abstract class Optimizer
 
   public void evaluate(Space space, Func func)
   {
-
+    for (Agent agent: space.getAgents())
+    {
+      //agent.setFit(func.apply(agent.getPositions()));
+    }
   }
 }
