@@ -61,7 +61,12 @@ public abstract class Optimizer
     }
   }
 
-  public double getAttr(String name) throws AttributeNotFoundException
+  public int getAttrCount()
+  {
+    return this.hyperparams.size();
+  }
+
+  public double getAttr(String name)
   {
     // Check key into HashMap if not
     //Object hold = this.hyperparams.get(name);
@@ -72,6 +77,14 @@ public abstract class Optimizer
     } else
     {
       throw new AttributeNotFoundException(String.format("'%s' attribute not exist in %s", name, this.toString()));
+    }
+  }
+
+  public void setAttr(String name, double value)
+  {
+    if (!name.equals(""))
+    {
+      hyperparams.put(name, value);
     }
   }
 

@@ -23,6 +23,10 @@ public class EPO extends Optimizer
   public EPO(String name, Attribute... hyperparams)
   {
     super(name);
+    if (hyperparams != null)
+    {
+      setHyperparams(hyperparams);
+    }
   }
 
   @Override
