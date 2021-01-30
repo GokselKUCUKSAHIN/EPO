@@ -3,7 +3,6 @@ package Test.DP.Core;
 import DP.Core.Func;
 import DP.Utils.JNum;
 
-import java.util.ArrayList;
 import java.util.function.Function;
 
 public class UnitTest_Func
@@ -126,8 +125,8 @@ public class UnitTest_Func
     Function<double[], Double> square2 = (double[] arr) -> arr[0] * arr[0] + arr[1] * arr[1];
     if (square2.apply(new double[]{2, 2}) != 8) throw new AssertionError();
 
-    Function<double[], Double> c_1 = (double[] arr) -> arr[0] + arr[1] <= 0 ? JNum.DOUBLE_TRUE : JNum.DOUBLE_FALSE;
-    if (c_1.apply(JNum.zeros(2)) != JNum.DOUBLE_TRUE) throw new AssertionError();
+    Function<double[], Double> c_1 = (double[] arr) -> arr[0] + arr[1] <= 0 ? JNum.TRUE : JNum.FALSE;
+    if (c_1.apply(JNum.zeros(2)) != JNum.TRUE) throw new AssertionError();
 
     Func newFunc = new Func(square, c_1, 100);
 

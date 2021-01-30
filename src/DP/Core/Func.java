@@ -191,7 +191,7 @@ public class Func
     double fitness = this.prevPointer.apply(array);
     for (Function<double[], Double> constraint : constraints)
     {
-      if (constraint.apply(array) != JNum.DOUBLE_TRUE)
+      if (constraint.apply(array) != JNum.TRUE)
       {
         fitness += this.penalty * fitness;
       }

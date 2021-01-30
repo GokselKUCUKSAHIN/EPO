@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class JNum
 {
 
-  public static final double DOUBLE_TRUE = Double.POSITIVE_INFINITY;
-  public static final double DOUBLE_FALSE = Double.NEGATIVE_INFINITY;
+  public static final double TRUE = Double.POSITIVE_INFINITY;
+  public static final double FALSE = Double.NEGATIVE_INFINITY;
 
 
   // ZEROS
