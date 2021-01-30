@@ -5,6 +5,10 @@ import java.util.Arrays;
 public class JNum
 {
 
+  public static final double TRUE = Double.POSITIVE_INFINITY;
+  public static final double FALSE = Double.NEGATIVE_INFINITY;
+
+
   // ZEROS
   public static double[] zeros(int n_variables)
   {

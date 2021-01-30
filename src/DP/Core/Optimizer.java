@@ -15,8 +15,8 @@ public abstract class Optimizer
   {
     // For Inheritance
     this("Not Specified");
-  }
 
+  }
   public Optimizer(String name)
   {
     this.setName(name);
@@ -101,7 +101,7 @@ public abstract class Optimizer
   // ABSTRACT REGION
   public abstract void update();
 
-  public void evaluate()
+  public void evaluate(Space space, Func func)
   {
 
   }

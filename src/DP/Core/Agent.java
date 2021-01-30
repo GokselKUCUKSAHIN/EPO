@@ -19,13 +19,12 @@ public class Agent
     this(1, 1);
   }
 
-  public Agent(int nv, int nd)
+  public Agent(int nVariables, int nDimensions)
   {
     // n_Variables (int): Number of decision variables.
     // n_Dimensions (int): Number of dimensions.
-    n_Variables = nv;
-    n_Dimensions = nd;
-    //positions = new double[n_Variables][n_Dimensions];
+    setN_Variables(nVariables);
+    setN_Dimensions(nDimensions);
     positions = JNum.zeros(n_Variables, n_Dimensions);
     fit = Double.POSITIVE_INFINITY;
     lb = JNum.zeros(n_Variables);
@@ -42,8 +41,7 @@ public class Agent
     if (n_Variables > 0)
     {
       this.n_Variables = n_Variables;
-    }
-    else
+    } else
     {
       throw new NonPositiveSizeException("`n_Variables` should be > 0");
     }
@@ -56,11 +54,10 @@ public class Agent
 
   public void setN_Dimensions(int n_Dimensions)
   {
-    if(n_Dimensions > 0)
+    if (n_Dimensions > 0)
     {
       this.n_Dimensions = n_Dimensions;
-    }
-    else
+    } else
     {
       throw new NonPositiveSizeException("`n_Dimensions` should be > 0");
     }
@@ -73,7 +70,13 @@ public class Agent
 
   public void setPositions(double[][] positions)
   {
-    this.positions = positions;
+    if (positions.length == n_Variables && positions[0].length == n_Dimensions)
+    {
+      this.positions = positions;
+    } else
+    {
+      throw new SizeMismatchException("position matrix's size must be: n_variables x n_dimensions");
+    }
   }
 
   public double getFit()
@@ -91,7 +94,7 @@ public class Agent
     return lb;
   }
 
-  public void setLb(double...lb)
+  public void setLb(double... lb)
   {
     this.lb = lb;
   }
@@ -101,14 +104,14 @@ public class Agent
     return ub;
   }
 
-  public void setUb(double...ub)
+  public void setUb(double... ub)
   {
     this.ub = ub;
   }
 
   public void clipLimits()
   {
-    if(positions.length == ub.length && positions.length == lb.length)
+    if (positions.length == ub.length && positions.length == lb.length)
     {
       for (int i = 0; i < positions.length; i++)
       {
@@ -119,8 +122,7 @@ public class Agent
           row[j] = Math.min(row[j], ub[i]);
         }
       }
-    }
-    else
+    } else
     {
       throw new SizeMismatchException("Position array and Boundaries are not compatible!");
     }

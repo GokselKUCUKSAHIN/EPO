@@ -20,8 +20,8 @@ public class BooleanSpace extends Space
   {
     for (Agent agent : getAgents())
     {
-      agent.setLb(getLb()); // TODO TEST THIS
-      agent.setUb(getUb()); // TODO TEST THIS
+      agent.setLb(getLb());
+      agent.setUb(getUb());
       for (int i = 0; i < getN_Variables(); i++)
       {
         agent.getPositions()[i] = Random.generateBinaryRandomNumber(agent.getN_Dimensions());
