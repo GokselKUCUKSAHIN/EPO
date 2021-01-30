@@ -172,6 +172,27 @@ public class JNum
     }
   }
 
+  // EXP
+
+  public static double[][] exp(double[][] array)
+  {
+    if (array != null && array.length > 0)
+    {
+      int row = array.length;
+      int col = array[0].length;
+      double[][] result = new double[row][col];
+      for (int i = 0; i < row; i++)
+      {
+        for (int j = 0; j < col; j++)
+        {
+          result[i][j] = Math.exp(array[i][j]);
+        }
+      }
+      return result;
+    }
+    return new double[0][0];
+  }
+
   // DIVIDE
 
   public static double[] div(double[] array, double number)
@@ -265,6 +286,34 @@ public class JNum
     } else
     {
       throw new NullPointerException("`array` is null");
+    }
+  }
+
+  public static double[][] mult(double[][] array, double[] numberArr)
+  {
+    if (array != null && numberArr != null)
+    {
+      int arrRow = array.length;
+      int arrCol = array[0].length;
+      int numLen = numberArr.length;
+      if (numLen == arrCol)
+      {
+        double[][] result = new double[arrRow][arrCol];
+        for (int i = 0; i < arrRow; i++)
+        {
+          for (int j = 0; j < arrCol; j++)
+          {
+            result[i][j] = array[i][j] * numberArr[j];
+          }
+        }
+        return result;
+      } else
+      {
+        throw new SizeMismatchException("`array` and `numberArr` not compatible");
+      }
+    } else
+    {
+      throw new NullPointerException("`array` or `numerArr` is null");
     }
   }
 
@@ -533,5 +582,4 @@ public class JNum
     }
     throw new NullPointerException("`firstArray` or `secondArray` is null");
   }
-
 }

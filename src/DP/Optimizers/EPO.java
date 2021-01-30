@@ -74,9 +74,11 @@ public class EPO extends Optimizer
       final double T = R >= 0.5 ? 0 : 1;
 
       // Calculates the temperature profile (Eq. 7)
+      // T_p = T - n_iterations / (iteration - n_iterations)
       final double T_p = T - nIteration / (double) (iteration - nIteration);
 
       // Calculates the polygon grid accuracy (Eq. 10)
+      // P_grid = np.fabs(best_agent.position - agent.position)
       final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
 
       // Generates a uniform random number and the `C` coefficient
@@ -84,7 +86,20 @@ public class EPO extends Optimizer
       final double[] C = Random.generateUniformRandomNumbers(agent.getN_Variables());
 
       // Calculates the avoidance coefficient (Eq. 9)
+      // A = 2 * (T_p + P_grid) * r1 - T_p
+      final double[][] A = JNum.sub(JNum.mult(JNum.sum(P_grid, T_p), 2 * r1), T_p);
 
+      // Calculates the social forces of emperor penguin (Eq. 12)
+      // S = (np.fabs(self.f * np.exp(-iteration / self.l) - np.exp(-iteration))) ** 2
+      final double S = Math.pow(Math.abs(getF() * Math.exp(-iteration / getL()) - Math.exp(-iteration)), 2);
+
+      // Calculates the distance between current agent and emperor penguin (Eq. 8)
+      // D_ep = np.fabs(S * best_agent.position - C * agent.position)
+      final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
+
+      // Updates current agent's position (Eq. 13)
+      // agent.position = best_agent.position - A * D_ep
+      agent.setPositions(JNum.sub(bestAgent.getPositions(), JNum.mult(A, D_ep)));
     }
   }
 
