@@ -2,23 +2,11 @@ package Test.DP.Core;
 
 import DP.Core.Agent;
 import DP.Exceptions.NonPositiveSizeException;
+import DP.Exceptions.SizeMismatchException;
 import DP.Utils.JNum;
 
 public class UnitTest_Agent
 {
-
-  private static void testClipping()
-  {
-    Agent my_Agent = new Agent(3, 2);
-    my_Agent.setPositions(new double[][]{{20, 690}, {-10, 50}, {5, 500}});
-    my_Agent.setUb(20, 42, 250);
-    my_Agent.setLb(5, 12, 19); // check this later.
-    System.out.println(JNum.print2DArray(my_Agent.getPositions()));
-    my_Agent.clipLimits();
-    System.out.println(JNum.print2DArray(my_Agent.getPositions()));
-  }
-
-  //  private static void
 
   private static void test_agent_n_variables()
   {
@@ -83,6 +71,59 @@ public class UnitTest_Agent
     assert myAgent.getPositions()[1][0] == 20;
   }
 
+  private static void test_agent_fit()
+  {
+    Agent myAgent = new Agent(5, 4);
+    if (myAgent.getFit() != Double.POSITIVE_INFINITY) throw new AssertionError();
+  }
+
+  private static void test_agent_lb()
+  {
+    Agent myAgent = new Agent(5, 4);
+    if (myAgent.getLb().length != 5) throw new AssertionError();
+  }
+
+  private static void test_agent_lb_setter()
+  {
+    Agent myAgent = new Agent(5, 4);
+    try
+    {
+      myAgent.setLb(new double[]{1, 2, 3});
+    }
+    catch (SizeMismatchException ex)
+    {
+      myAgent.setLb(new double[]{1, 2, 3, 4, 5});
+    }
+  }
+
+  private static void test_agent_ub()
+  {
+    Agent myAgent = new Agent(5, 4);
+    if (myAgent.getUb().length != 5) throw new AssertionError();
+  }
+
+  private static void test_agent_ub_setter()
+  {
+    Agent myAgent = new Agent(5, 4);
+    try
+    {
+      myAgent.setUb(new double[]{10, 9, 7});
+    }
+    catch (SizeMismatchException ex)
+    {
+      myAgent.setUb(new double[]{10, 9, 8, 7, 6});
+    }
+  }
+
+  private static void test_agent_clip_limits()
+  {
+    Agent myAgent = new Agent(1,1);
+    myAgent.setLb(10);
+    myAgent.setUb(10);
+    myAgent.clipLimits();
+    if (myAgent.getPositions()[0][0] != 10) throw new AssertionError();
+  }
+
   public static void doTest()
   {
     System.out.println("Starting Agent Unit Test...");
@@ -92,6 +133,12 @@ public class UnitTest_Agent
     test_agents_n_dimensions_setter();
     test_agent_position();
     test_agent_position_setter();
+    test_agent_fit();
+    test_agent_lb();
+    test_agent_lb_setter();
+    test_agent_ub();
+    test_agent_ub_setter();
+    test_agent_clip_limits();
     System.out.println("Agent Unit Test is Succesful.\n");
   }
 }

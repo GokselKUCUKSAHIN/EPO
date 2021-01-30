@@ -96,7 +96,13 @@ public class Agent
 
   public void setLb(double... lb)
   {
-    this.lb = lb;
+    if (lb.length == n_Variables)
+    {
+      this.lb = lb;
+    } else
+    {
+      throw new SizeMismatchException("Lower Bound size must same as Number of Variables");
+    }
   }
 
   public double[] getUb()
@@ -106,7 +112,13 @@ public class Agent
 
   public void setUb(double... ub)
   {
-    this.ub = ub;
+    if (ub.length == n_Variables)
+    {
+      this.ub = ub;
+    } else
+    {
+      throw new SizeMismatchException("Upper Bound size must same as Number of Variables");
+    }
   }
 
   public void clipLimits()
