@@ -161,28 +161,22 @@ public class Func
 
   private void createPointer(Function<double[], Double> pointer)
   {
-    setPointer(this::constrain_pointer);
-    setPointerName("constrain_pointer");
-//    if (pointer != null)
-//    {
-//
-//    } else
-//    {
-//      throw new NullPointerException("`Pointer` is null");
-//    }
+    if (pointer != null)
+    {
+      setPointer(this::constrain_pointer);
+      setPointerName("constrain_pointer");
+    } else
+    {
+      throw new NullPointerException("`Pointer` is null");
+    }
   }
-  static int i = 1; //
+
   private double constrain_pointer(double[] array)
   {
-    System.out.println(i++); //
     double fitness = this.prevPointer.apply(array);
     for (Function<double[], Double> constraint : constraints)
     {
-      if (constraint.apply(array) == JNum.DOUBLE_TRUE) // TODO idk! Check here later
-      {
-        continue; // TODO Fix later
-      }
-      else
+      if (constraint.apply(array) != JNum.DOUBLE_TRUE)
       {
         fitness += this.penalty * fitness;
       }

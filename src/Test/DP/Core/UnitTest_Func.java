@@ -116,14 +116,12 @@ public class UnitTest_Func
     Function<double[], Double> square2 = (double[] arr) -> arr[0] * arr[0] + arr[1] * arr[1];
     if (square2.apply(new double[]{2, 2}) != 8) throw new AssertionError();
 
-    Function<double[], Double> c_1 = (double[] arr) -> {
-          return arr[0] + arr[1] <= 0 ? JNum.DOUBLE_TRUE : JNum.DOUBLE_FALSE;
-    };
+    Function<double[], Double> c_1 = (double[] arr) -> arr[0] + arr[1] <= 0 ? JNum.DOUBLE_TRUE : JNum.DOUBLE_FALSE;
     if (c_1.apply(JNum.zeros(2)) != JNum.DOUBLE_TRUE) throw new AssertionError();
 
     ArrayList<Function<double[], Double>> constraints = new ArrayList<>();
     constraints.add(c_1);
-    System.out.println(constraints.size() == 1);
+    //System.out.println(constraints.size() == 1);
 
     Func newFunc = new Func(square, constraints, 100);
 
@@ -131,8 +129,7 @@ public class UnitTest_Func
     if (newFunc.apply(JNum.zeros(2)) != 0) throw new AssertionError();
     //System.out.println(newFunc.apply(JNum.zeros(2)));
     //if ( != 202) throw new AssertionError();
-    System.out.println(newFunc.apply(new double[]{1,2,3}));
-    System.out.println("test"); //  TODO DELETE THIS LINE*/
+    //System.out.println(newFunc.apply(new double[]{1,2,3}));
   }
 
   public static double square(double[] args)
@@ -147,7 +144,7 @@ public class UnitTest_Func
 
   public static void doTest()
   {
-    /*
+
     test_func_name();
     test_func_name_setter();
     test_func_constraints();
@@ -158,7 +155,6 @@ public class UnitTest_Func
     test_func_pointer_setter();
     test_func_built();
     test_func_built_setter();
-    */
     test_func_create_pointer();
   }
 }
