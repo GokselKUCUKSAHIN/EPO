@@ -22,7 +22,22 @@ public class Func
 
   public Func()
   {
-    this(Func::placeHolderFunction, null, 0);
+    this(Func::placeHolderFunction);
+  }
+
+  public Func(Function<double[], Double> pointer)
+  {
+    this(pointer, new ArrayList<>(), 0.0);
+  }
+
+  public Func(Function<double[], Double> pointer, Function<double[], Double> constraint, double penalty)
+  {
+    this(pointer, new ArrayList<Function<double[], Double>>()
+    {
+      {
+        add(constraint);
+      }
+    }, penalty);
   }
 
   public Func(Function<double[], Double> pointer, ArrayList<Function<double[], Double>> constraints, double penalty)

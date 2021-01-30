@@ -106,6 +106,16 @@ public class UnitTest_Func
     newFunc.setBuilt(false);
   }
 
+  public static double square(double[] args)
+  {
+    double sum = 0;
+    for (double num : args)
+    {
+      sum += num * num;
+    }
+    return sum;
+  }
+
   private static void test_func_create_pointer()
   {
     Function<double[], Double> square = UnitTest_Func::square;
@@ -119,32 +129,15 @@ public class UnitTest_Func
     Function<double[], Double> c_1 = (double[] arr) -> arr[0] + arr[1] <= 0 ? JNum.DOUBLE_TRUE : JNum.DOUBLE_FALSE;
     if (c_1.apply(JNum.zeros(2)) != JNum.DOUBLE_TRUE) throw new AssertionError();
 
-    ArrayList<Function<double[], Double>> constraints = new ArrayList<>();
-    constraints.add(c_1);
-    //System.out.println(constraints.size() == 1);
+    Func newFunc = new Func(square, c_1, 100);
 
-    Func newFunc = new Func(square, constraints, 100);
+    if (newFunc.apply(JNum.ones(2)) != 202) throw new AssertionError();
 
-    newFunc.setName("testFunc");
     if (newFunc.apply(JNum.zeros(2)) != 0) throw new AssertionError();
-    //System.out.println(newFunc.apply(JNum.zeros(2)));
-    //if ( != 202) throw new AssertionError();
-    //System.out.println(newFunc.apply(new double[]{1,2,3}));
-  }
-
-  public static double square(double[] args)
-  {
-    double sum = 0;
-    for (double num : args)
-    {
-      sum += num * num;
-    }
-    return sum;
   }
 
   public static void doTest()
   {
-
     test_func_name();
     test_func_name_setter();
     test_func_constraints();
