@@ -2,6 +2,7 @@ package DP.Optimizers;
 
 import DP.Core.*;
 import DP.Math.Random;
+import DP.Utils.JNum;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,10 +74,17 @@ public class EPO extends Optimizer
       final double T = R >= 0.5 ? 0 : 1;
 
       // Calculates the temperature profile (Eq. 7)
-      final double T_p = T - nIteration / (double)(iteration - nIteration);
+      final double T_p = T - nIteration / (double) (iteration - nIteration);
 
       // Calculates the polygon grid accuracy (Eq. 10)
-      final double P_grid = 1; // TODO CONTINUE HERE
+      final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
+
+      // Generates a uniform random number and the `C` coefficient
+      double r1 = Random.getUnifiedRandomNumber();
+      final double[] C = Random.generateUniformRandomNumbers(agent.getN_Variables());
+
+      // Calculates the avoidance coefficient (Eq. 9)
+
     }
   }
 

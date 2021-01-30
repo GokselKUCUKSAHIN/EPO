@@ -172,28 +172,269 @@ public class JNum
     }
   }
 
-  public static double[][][] fabs(double[][][] arr)
+  // DIVIDE
+
+  public static double[] div(double[] array, double number)
+  {
+    if (number == 0)
+    {
+      throw new ArithmeticException("Divided by Zero");
+    } else
+    {
+      return mult(array, 1 / number);
+    }
+  }
+
+  public static double[][] div(double[][] array, double number)
+  {
+    if (number == 0)
+    {
+      throw new ArithmeticException("Divided by Zero");
+    } else
+    {
+      return mult(array, 1 / number);
+    }
+  }
+
+  public static double[] div(double[] firstArray, double[] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int lenFirst = firstArray.length;
+      double[] result = new double[lenFirst];
+      for (int i = 0; i < lenFirst; i++)
+      {
+        result[i] = firstArray[i] / secondArray[i];
+      }
+      return result;
+    }
+    return new double[0];
+  }
+
+  public static double[][] div(double[][] firstArray, double[][] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      double[][] result = new double[rowFirst][colFirst];
+      for (int i = 0; i < rowFirst; i++)
+      {
+        for (int j = 0; j < colFirst; j++)
+        {
+          result[i][j] = firstArray[i][j] / secondArray[i][j];
+        }
+      }
+      return result;
+    }
+    return new double[0][0];
+  }
+
+  // MULTIPLY
+
+  public static double[] mult(double[] array, double number)
+  {
+    if (array != null)
+    {
+      if (array.length > 0)
+      {
+        double[] filledArray = fill(array.length, number);
+        return mult(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
+      }
+    } else
+    {
+      throw new NullPointerException("`array` is null");
+    }
+  }
+
+  public static double[][] mult(double[][] array, double number)
+  {
+    if (array != null)
+    {
+      if (array.length > 0 && array[0].length > 0)
+      {
+        double[][] filledArray = fill(array.length, array[0].length, number);
+        return mult(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
+      }
+    } else
+    {
+      throw new NullPointerException("`array` is null");
+    }
+  }
+
+  public static double[] mult(double[] firstArray, double[] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int lenFirst = firstArray.length;
+      double[] result = new double[lenFirst];
+      for (int i = 0; i < lenFirst; i++)
+      {
+        result[i] = firstArray[i] * secondArray[i];
+      }
+      return result;
+    }
+    return new double[0];
+  }
+
+  public static double[][] mult(double[][] firstArray, double[][] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      double[][] result = new double[rowFirst][colFirst];
+      for (int i = 0; i < rowFirst; i++)
+      {
+        for (int j = 0; j < colFirst; j++)
+        {
+          result[i][j] = firstArray[i][j] * secondArray[i][j];
+        }
+      }
+      return result;
+    }
+    return new double[0][0];
+  }
+
+  // SUM
+
+  public static double[] sum(double[] array, double number)
+  {
+    if (array != null)
+    {
+      if (array.length > 0)
+      {
+        double[] filledArray = fill(array.length, number);
+        return sum(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
+      }
+    } else
+    {
+      throw new NullPointerException("`array` is null");
+    }
+  }
+
+  public static double[][] sum(double[][] array, double number)
+  {
+    if (array != null)
+    {
+      if (array.length > 0 && array[0].length > 0)
+      {
+        double[][] filledArray = fill(array.length, array[0].length, number);
+        return sum(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
+      }
+    } else
+    {
+      throw new NullPointerException("`array` is null");
+    }
+  }
+
+  public static double[] sum(double[] firstArray, double[] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int lenFirst = firstArray.length;
+      double[] result = new double[lenFirst];
+      for (int i = 0; i < lenFirst; i++)
+      {
+        result[i] = firstArray[i] + secondArray[i];
+      }
+      return result;
+    }
+    return new double[0];
+  }
+
+  public static double[][] sum(double[][] firstArray, double[][] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      double[][] result = new double[rowFirst][colFirst];
+      for (int i = 0; i < rowFirst; i++)
+      {
+        for (int j = 0; j < colFirst; j++)
+        {
+          result[i][j] = firstArray[i][j] + secondArray[i][j];
+        }
+      }
+      return result;
+    }
+    return new double[0][0];
+  }
+
+  // SUBTRACT
+
+  public static double[] sub(double[] array, double number)
+  {
+    return sum(array, -1 * number);
+  }
+
+  public static double[][] sub(double[][] array, double number)
+  {
+    return sum(array, -1 * number);
+  }
+
+  public static double[] sub(double[] firstArray, double[] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int lenFirst = firstArray.length;
+      double[] result = new double[lenFirst];
+      for (int i = 0; i < lenFirst; i++)
+      {
+        result[i] = firstArray[i] - secondArray[i];
+      }
+      return result;
+    }
+    return new double[0];
+  }
+
+  public static double[][] sub(double[][] firstArray, double[][] secondArray)
+  {
+    if (checkArraySize(firstArray, secondArray))
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      double[][] result = new double[rowFirst][colFirst];
+      for (int i = 0; i < rowFirst; i++)
+      {
+        for (int j = 0; j < colFirst; j++)
+        {
+          result[i][j] = firstArray[i][j] - secondArray[i][j];
+        }
+      }
+      return result;
+    }
+    return new double[0][0];
+  }
+
+  // ABSOLUTE
+
+  public static double[] fabs(double[] arr)
   {
     if (arr != null)
     {
-      int row = arr.length;
-      int column = arr[0].length;
-      int dimension = arr[0][0].length;
-      if (row < 1 || column < 1 || dimension < 1)
+      if (arr.length < 1)
       {
-        return new double[0][0][0];
+        return new double[0];
       } else
       {
-        double[][][] absArr = new double[row][column][dimension];
-        for (int i = 0; i < row; i++)
+        double[] absArr = new double[arr.length];
+        for (int i = 0; i < absArr.length; i++)
         {
-          for (int j = 0; j < column; j++)
-          {
-            for (int k = 0; k < dimension; k++)
-            {
-              absArr[i][j][k] = Math.abs(arr[i][j][k]);
-            }
-          }
+          absArr[i] = Math.abs(arr[i]);
         }
         return absArr;
       }
@@ -226,23 +467,71 @@ public class JNum
     throw new NullPointerException("`Array` is null");
   }
 
-  public static double[] fabs(double[] arr)
+  public static double[][][] fabs(double[][][] arr)
   {
     if (arr != null)
     {
-      if (arr.length < 1)
+      int row = arr.length;
+      int column = arr[0].length;
+      int dimension = arr[0][0].length;
+      if (row < 1 || column < 1 || dimension < 1)
       {
-        return new double[0];
+        return new double[0][0][0];
       } else
       {
-        double[] absArr = new double[arr.length];
-        for (int i = 0; i < absArr.length; i++)
+        double[][][] absArr = new double[row][column][dimension];
+        for (int i = 0; i < row; i++)
         {
-          absArr[i] = Math.abs(arr[i]);
+          for (int j = 0; j < column; j++)
+          {
+            for (int k = 0; k < dimension; k++)
+            {
+              absArr[i][j][k] = Math.abs(arr[i][j][k]);
+            }
+          }
         }
         return absArr;
       }
     }
     throw new NullPointerException("`Array` is null");
   }
+
+  // CHECK ARRAY SIZE
+
+  public static boolean checkArraySize(double[] firstArray, double[] secondArray)
+  {
+    if (firstArray != null && secondArray != null)
+    {
+      int lenFirst = firstArray.length;
+      int lenSecond = secondArray.length;
+      if (lenFirst > 1 && lenSecond > 1 && lenFirst == lenSecond)
+      {
+        return true;
+      } else
+      {
+        throw new SizeMismatchException("`firstArray` and `secondArray` should be same lenght");
+      }
+    }
+    throw new NullPointerException("`firstArray` or `secondArray` is null");
+  }
+
+  public static boolean checkArraySize(double[][] firstArray, double[][] secondArray)
+  {
+    if (firstArray != null && secondArray != null)
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      int rowSecond = secondArray.length;
+      int colSecond = secondArray[0].length;
+      if (rowFirst > 1 && colFirst > 1 && rowSecond > 1 && colSecond > 1 && rowFirst == rowFirst && colFirst == colSecond)
+      {
+        return true;
+      } else
+      {
+        throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
+      }
+    }
+    throw new NullPointerException("`firstArray` or `secondArray` is null");
+  }
+
 }
