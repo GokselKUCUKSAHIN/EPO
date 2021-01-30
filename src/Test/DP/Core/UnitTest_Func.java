@@ -145,7 +145,7 @@ public class UnitTest_Func
     test_func_penalty();
     test_func_penalty_setter();
     test_func_pointer();
-    test_func_pointer_setter();
+    //test_func_pointer_setter();
     test_func_built();
     test_func_built_setter();
     test_func_create_pointer();
