@@ -20,8 +20,8 @@ public abstract class Optimizer
 
   public Optimizer(String name)
   {
-    this.setName(name);
-    this.hyperparams = new HashMap<>();
+    setName(name);
+    hyperparams = new HashMap<>();
   }
 
   public void setName(String name)

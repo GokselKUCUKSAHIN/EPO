@@ -196,7 +196,6 @@ public class Func
         fitness += this.penalty * fitness;
       }
     }
-    //System.out.println(i + " fitness " + fitness);
     return fitness;
   }
 }
