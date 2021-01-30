@@ -1,6 +1,7 @@
 package DP.Core;
 
 import DP.Exceptions.AttributeNotFoundException;
+import DP.Exceptions.BuildException;
 
 import java.util.HashMap;
 
@@ -15,7 +16,6 @@ public abstract class Optimizer
   {
     // For Inheritance
     this("Not Specified");
-
   }
 
   public Optimizer(String name)
@@ -26,7 +26,13 @@ public abstract class Optimizer
 
   public void setName(String name)
   {
-    this.name = name;
+    if (name.equals(""))
+    {
+      throw new BuildException("`Algorithm name` can not be Empty String");
+    } else
+    {
+      this.name = name;
+    }
   }
 
   public String getName()
