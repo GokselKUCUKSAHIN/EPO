@@ -1,5 +1,5 @@
 # EPO
-Emperor Penguin Optimizer
+## Emperor Penguin Optimizer
 
 # 🚧Still Under Development🚧
 
