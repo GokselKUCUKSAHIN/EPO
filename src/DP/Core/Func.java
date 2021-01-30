@@ -171,10 +171,10 @@ public class Func
 //      throw new NullPointerException("`Pointer` is null");
 //    }
   }
-  static int i = 1;
+  static int i = 1; //
   private double constrain_pointer(double[] array)
   {
-    System.out.println(i++);
+    System.out.println(i++); //
     double fitness = this.prevPointer.apply(array);
     for (Function<double[], Double> constraint : constraints)
     {
@@ -185,9 +185,9 @@ public class Func
       else
       {
         fitness += this.penalty * fitness;
-
       }
     }
+    //System.out.println(i + " fitness " + fitness);
     return fitness;
   }
 }
