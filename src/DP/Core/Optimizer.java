@@ -17,6 +17,7 @@ public abstract class Optimizer
     this("Not Specified");
 
   }
+
   public Optimizer(String name)
   {
     this.setName(name);
@@ -91,7 +92,6 @@ public abstract class Optimizer
         getName(), Attribute.getPairs(hyperparams), isBuilt());
   }
 
-
   @Override
   public String toString()
   {
@@ -103,9 +103,16 @@ public abstract class Optimizer
 
   public void evaluate(Space space, Func func)
   {
-    for (Agent agent: space.getAgents())
+    for (Agent agent : space.getAgents())
     {
-      //agent.setFit(func.apply(agent.getPositions()));
+      agent.setFit(func.apply(agent.getPositions()));
+      if (agent.getFit() < space.getBestAgent().getFit())
+      {
+        space.getBestAgent().setPositions(agent.getPositions());
+        space.getBestAgent().setFit(agent.getFit());
+      }
     }
   }
+
+  public abstract void run(Space space, Func function, boolean storeBestOnly, Func preEvalution);
 }

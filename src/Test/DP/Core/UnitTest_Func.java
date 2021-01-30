@@ -29,14 +29,14 @@ public class UnitTest_Func
 
   private static void test_func_constraints_setter()
   {
-    Function<double[], Double> c_1 = (double[] arr) -> arr[0] * arr[0];
+    Function<double[][], Double> c_1 = UnitTest_Func::square;
     try
     {
-      if ((c_1.apply(new double[]{2}) != 5)) throw new AssertionError();
+      if ((c_1.apply(new double[][]{{2}}) != 5)) throw new AssertionError();
     }
     catch (AssertionError ae)
     {
-      if ((c_1.apply(new double[]{2}) != 4)) throw new AssertionError();
+      if ((c_1.apply(new double[][]{{2}}) != 4)) throw new AssertionError();
     }
 
     Func newFunc = new Func();
@@ -105,34 +105,37 @@ public class UnitTest_Func
     newFunc.setBuilt(false);
   }
 
-  public static double square(double[] args)
+  public static double square(double[][] args)
   {
     double sum = 0;
-    for (double num : args)
+    for (double[] row : args)
     {
-      sum += num * num;
+      for (double num : row)
+      {
+        sum += num * num;
+      }
     }
     return sum;
   }
 
   private static void test_func_create_pointer()
   {
-    Function<double[], Double> square = UnitTest_Func::square;
-    if (square.apply(new double[]{2, 1}) != 5) throw new AssertionError();
+    Function<double[][], Double> square = UnitTest_Func::square;
+    if (square.apply(new double[][]{{2, 1}}) != 5) throw new AssertionError();
 
-    if (square.apply(new double[]{1, 2, 3}) != 14) throw new AssertionError();
+    if (square.apply(new double[][]{{1, 2, 3}}) != 14) throw new AssertionError();
 
-    Function<double[], Double> square2 = (double[] arr) -> arr[0] * arr[0] + arr[1] * arr[1];
-    if (square2.apply(new double[]{2, 2}) != 8) throw new AssertionError();
+    Function<double[][], Double> square2 = (double[][] arr) -> arr[0][0] * arr[0][0] + arr[0][1] * arr[0][1];
+    if (square2.apply(new double[][]{{2, 2}}) != 8) throw new AssertionError();
 
-    Function<double[], Double> c_1 = (double[] arr) -> arr[0] + arr[1] <= 0 ? JNum.TRUE : JNum.FALSE;
-    if (c_1.apply(JNum.zeros(2)) != JNum.TRUE) throw new AssertionError();
+    Function<double[][], Double> c_1 = (double[][] arr) -> arr[0][0] + arr[0][1] <= 0 ? JNum.TRUE : JNum.FALSE;
+    if (c_1.apply(JNum.zeros(1, 2)) != JNum.TRUE) throw new AssertionError();
 
     Func newFunc = new Func(square, c_1, 100);
 
-    if (newFunc.apply(JNum.ones(2)) != 202) throw new AssertionError();
+    if (newFunc.apply(JNum.ones(1,2)) != 202) throw new AssertionError();
 
-    if (newFunc.apply(JNum.zeros(2)) != 0) throw new AssertionError();
+    if (newFunc.apply(JNum.zeros(1,2)) != 0) throw new AssertionError();
   }
 
   public static void doTest()
@@ -145,7 +148,6 @@ public class UnitTest_Func
     test_func_penalty();
     test_func_penalty_setter();
     test_func_pointer();
-    //test_func_pointer_setter();
     test_func_built();
     test_func_built_setter();
     test_func_create_pointer();
