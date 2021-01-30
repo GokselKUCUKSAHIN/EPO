@@ -95,7 +95,7 @@ public class JNum
     {
       for (int j = 0; j < arr[0].length; j++)
       {
-        sb.append(String.format("%6.1f  ", doubles[j]));
+        sb.append(String.format("%6.4f  ", doubles[j]));
       }
       sb.append("\n");
     }

@@ -89,7 +89,7 @@ public abstract class Optimizer
     }
     setBuilt(true);
     System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
-        getName(), Attribute.getPairs(hyperparams), isBuilt());
+        getName(), Attribute.getPairs(hyperparams), isBuilt()); // TODO Change this to LOG
   }
 
   @Override
@@ -97,9 +97,6 @@ public abstract class Optimizer
   {
     return this.name;
   }
-
-  // ABSTRACT REGION
-  public abstract void update();
 
   public void evaluate(Space space, Func func)
   {
@@ -113,6 +110,9 @@ public abstract class Optimizer
       }
     }
   }
+
+  // ABSTRACT REGION
+  public abstract void update();
 
   public abstract void run(Space space, Func function, boolean storeBestOnly, Func preEvalution);
 }
