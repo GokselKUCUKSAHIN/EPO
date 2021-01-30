@@ -7,9 +7,10 @@ import DP.Math.Random;
 public class SearchSpace extends Space
 {
 
-  public SearchSpace(int n_Agents, int n_Variables, int n_Dimensions, int n_Iterations, double[] lowerBound, double[] upperBound)
+
+  public SearchSpace(int n_Agents, int n_Variables, int n_Iterations, double[] lowerBound, double[] upperBound)
   {
-    super(n_Agents, n_Variables, n_Dimensions, n_Iterations);
+    super(n_Agents, n_Variables, 1, n_Iterations); // Dimension 1
     double[] tLB = lowerBound;
     double[] tUB = upperBound;
     if (lowerBound.length < 1)
@@ -22,6 +23,16 @@ public class SearchSpace extends Space
     }
     this.Build(tLB, tUB);
     this.initializeAgents();
+  }
+
+  public SearchSpace(int n_Agents, int n_Variables, int n_Iterations)
+  {
+    this(n_Agents, n_Variables, n_Iterations, new double[]{0}, new double[]{1});
+  }
+  
+  public SearchSpace()
+  {
+    this(1, 1, 10);
   }
 
   @Override
