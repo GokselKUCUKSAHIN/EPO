@@ -88,7 +88,7 @@ public class UnitTest_Func
     {
       newFunc.setPointer(Func.CHECK);
     }
-    if (!newFunc.getPointer().getClass().getName().equals("DP.Core.Func$$Lambda$1/189568618"))
+    if (!newFunc.getPointer().getClass().getName().equals("DP.Core.Func$$Lambda$2/317574433"))
       throw new AssertionError();
   }
 
@@ -137,6 +137,7 @@ public class UnitTest_Func
 
   public static void doTest()
   {
+    System.out.println("Starting Func Unit Test...");
     test_func_name();
     test_func_name_setter();
     test_func_constraints();
@@ -148,5 +149,6 @@ public class UnitTest_Func
     test_func_built();
     test_func_built_setter();
     test_func_create_pointer();
+    System.out.println("Func Unit Test is Succesful.\n");
   }
 }

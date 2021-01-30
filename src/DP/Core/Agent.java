@@ -19,13 +19,12 @@ public class Agent
     this(1, 1);
   }
 
-  public Agent(int nv, int nd)
+  public Agent(int nVariables, int nDimensions)
   {
     // n_Variables (int): Number of decision variables.
     // n_Dimensions (int): Number of dimensions.
-    n_Variables = nv;
-    n_Dimensions = nd;
-    //positions = new double[n_Variables][n_Dimensions];
+    setN_Variables(nVariables);
+    setN_Dimensions(nDimensions);
     positions = JNum.zeros(n_Variables, n_Dimensions);
     fit = Double.POSITIVE_INFINITY;
     lb = JNum.zeros(n_Variables);

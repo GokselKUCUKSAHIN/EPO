@@ -8,7 +8,7 @@ public class TestMain
 
   public static void main(String[] args)
   {
-    //UnitTest_Agent.testClipping();
+    UnitTest_Agent.doTest();
     UnitTest_Func.doTest();
   }
 }
