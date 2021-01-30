@@ -77,22 +77,6 @@ public class UnitTest_Func
     if (!newFunc.getPointerName().equals("constrain_pointer")) throw new AssertionError();
   }
 
-  private static void test_func_pointer_setter()
-  {
-    Func newFunc = new Func();
-    try
-    {
-      newFunc.setPointer(null);
-    }
-    catch (NullPointerException ex)
-    {
-      newFunc.setPointer(Func.CHECK);
-    }
-    if (!newFunc.getPointer().getClass().getName().equals("DP.Core.Func$$Lambda$2/317574433"))
-      throw new AssertionError();
-  }
-
-
   private static void test_func_built()
   {
     Func newFunc = new Func();
@@ -133,9 +117,9 @@ public class UnitTest_Func
 
     Func newFunc = new Func(square, c_1, 100);
 
-    if (newFunc.apply(JNum.ones(1,2)) != 202) throw new AssertionError();
+    if (newFunc.apply(JNum.ones(1, 2)) != 202) throw new AssertionError();
 
-    if (newFunc.apply(JNum.zeros(1,2)) != 0) throw new AssertionError();
+    if (newFunc.apply(JNum.zeros(1, 2)) != 0) throw new AssertionError();
   }
 
   public static void doTest()
