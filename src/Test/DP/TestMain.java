@@ -20,9 +20,9 @@ public class TestMain
         //UnitTest_Math.doTest();
 
         // Utils
-        //UnitTest_JNum.doTest();
+        UnitTest_JNum.doTest();
 
         // Optimizers
-        UnitTest_EPO.doTest();
+        //UnitTest_EPO.doTest();
     }
 }

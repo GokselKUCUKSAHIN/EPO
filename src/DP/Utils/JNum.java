@@ -15,7 +15,7 @@ copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
@@ -35,91 +35,6 @@ public class JNum
   public static final double TRUE = Double.POSITIVE_INFINITY;
   public static final double FALSE = Double.NEGATIVE_INFINITY;
 
-
-  // ZEROS
-  public static double[] zeros(int n_variables)
-  {
-    return fill(n_variables, 0);
-  }
-
-  public static double[][] zeros(int n_variables, int n_dimensions)
-  {
-    return fill(n_variables, n_dimensions, 0);
-  }
-
-  public static double[][][] zeros(int n_variables, int n_dimensions, int n_size)
-  {
-    return fill(n_variables, n_dimensions, n_size, 0);
-  }
-
-  //ONES
-  public static double[] ones(int n_variables)
-  {
-    return fill(n_variables, 1);
-  }
-
-  public static double[][] ones(int n_variables, int n_dimensions)
-  {
-    return fill(n_variables, n_dimensions, 1);
-  }
-
-  public static double[][][] ones(int n_variables, int n_dimensions, int n_size)
-  {
-    return fill(n_variables, n_dimensions, n_size, 1);
-  }
-
-  public static int[] fillInt(int p1, int value)
-  {
-    if (p1 > 0)
-    {
-      int[] array = new int[p1];
-      Arrays.fill(array, value);
-      return array;
-    }
-    return new int[0];
-  }
-
-  // 1 Dimension
-  public static double[] fill(int p1, double value)
-  {
-    if (p1 > 0)
-    {
-      double[] array = new double[p1];
-      Arrays.fill(array, value);
-      return array;
-    }
-    return new double[0];
-  }
-
-  // 2 Dimension
-  public static double[][] fill(int p1, int p2, double value)
-  {
-    if (p1 > 0 && p2 > 0)
-    {
-      double[][] array = new double[p1][p2];
-      Arrays.stream(array).forEach(arr -> Arrays.fill(arr, value));
-      return array;
-    }
-    return new double[0][0];
-  }
-
-  // 3 Dimension
-  public static double[][][] fill(int p1, int p2, int p3, double value)
-  {
-    if (p1 > 0 && p2 > 0 && p3 > 0)
-    {
-      double[][][] array = new double[p1][p2][p3];
-      for (double[][] row : array)
-      {
-        for (double[] rowColumn : row)
-        {
-          Arrays.fill(rowColumn, value);
-        }
-      }
-      return array;
-    }
-    return new double[0][0][0];
-  }
 
   public static String printArray(double[] arr)
   {
@@ -157,7 +72,7 @@ public class JNum
     // Check Step
     if (step <= 0)
     {
-      throw new NonPositiveSizeException("`step` shoud be greater than 0");
+      throw new NonPositiveSizeException("`step` should be greater than 0");
     }
     // Check Bound sizes
     if (lb.length != lb.length)
@@ -265,7 +180,7 @@ public class JNum
       }
     } else
     {
-      throw new NullPointerException("`array` or `numerArr` is null");
+      throw new NullPointerException("`array` or `numberArr` is null");
     }
   }
 
@@ -376,7 +291,7 @@ public class JNum
       }
     } else
     {
-      throw new NullPointerException("`array` or `numerArr` is null");
+      throw new NullPointerException("`array` or `numberArr` is null");
     }
   }
 
@@ -537,6 +452,203 @@ public class JNum
     return new double[0][0];
   }
 
+
+  // CHECK ARRAY SIZE
+
+  public static boolean checkArraySize(double[] firstArray, double[] secondArray)
+  {
+    if (firstArray != null && secondArray != null)
+    {
+      int lenFirst = firstArray.length;
+      int lenSecond = secondArray.length;
+      if (lenFirst == lenSecond)
+      {
+        return true;
+      } else
+      {
+        throw new SizeMismatchException("`firstArray` and `secondArray` should be same length");
+      }
+    }
+    throw new NullPointerException("`firstArray` or `secondArray` is null");
+  }
+
+  public static boolean checkArraySize(double[][] firstArray, double[][] secondArray)
+  {
+    if (firstArray != null && secondArray != null)
+    {
+      int rowFirst = firstArray.length;
+      int colFirst = firstArray[0].length;
+      int rowSecond = secondArray.length;
+      int colSecond = secondArray[0].length;
+      if (rowFirst == rowSecond || colFirst == colSecond || rowFirst == colSecond || rowSecond == colFirst)
+      {
+        return true;
+      } else
+      {
+        throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
+      }
+    }
+    throw new NullPointerException("`firstArray` or `secondArray` is null");
+  }
+
+
+  public static double[][] multiply(double[][] friA, double[][] secA)
+  {
+    Shape shAr1 = new Shape(friA);
+    Shape shAr2 = new Shape(secA);
+    int mode = Shape.getMode(shAr1, shAr2);
+    if (mode == -1)
+    {
+      // Size doesn't match throw exception
+      throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
+    } else
+    {
+      // Null safe object
+      double[][] result = new double[0][0];
+      switch (mode)
+      {
+        case 0:
+        {
+          // AxB == AxB
+          result = new double[shAr1.row][shAr1.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = friA[i][j] * secA[i][j];
+            }
+          }
+          break;
+        }
+        case 1:
+        {
+          // 1xB and ZxB
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr2.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = friA[0][j] * secA[i][j];
+            }
+          }
+          break;
+        }
+        case 2:
+        {
+          // Ax1 and AxZ
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr2.row; i++)
+          {
+            for (int j = 0; j < shAr1.row; j++)
+            {
+              result[i][j] = friA[j][0] * secA[i][j];
+            }
+          }
+          break;
+        }
+        case 3:
+        case 4:
+        {
+          // if mode 3 swap arrays and turn into mode 1
+          // if mode 4 swap arrays and turn into mode 2
+          return multiply(secA, friA);
+        }
+        default:
+          break;
+      }
+      return result;
+    }
+  }
+
+
+  // SAFE TO STORE
+
+  // ZEROS
+  public static double[] zeros(int n_variables)
+  {
+    return fill(n_variables, 0);
+  }
+
+  public static double[][] zeros(int n_variables, int n_dimensions)
+  {
+    return fill(n_variables, n_dimensions, 0);
+  }
+
+  public static double[][][] zeros(int n_variables, int n_dimensions, int n_size)
+  {
+    return fill(n_variables, n_dimensions, n_size, 0);
+  }
+
+  //ONES
+  public static double[] ones(int n_variables)
+  {
+    return fill(n_variables, 1);
+  }
+
+  public static double[][] ones(int n_variables, int n_dimensions)
+  {
+    return fill(n_variables, n_dimensions, 1);
+  }
+
+  public static double[][][] ones(int n_variables, int n_dimensions, int n_size)
+  {
+    return fill(n_variables, n_dimensions, n_size, 1);
+  }
+
+  // 1 Dimension
+  public static double[] fill(int p1, double value)
+  {
+    if (p1 > 0)
+    {
+      double[] array = new double[p1];
+      Arrays.fill(array, value);
+      return array;
+    }
+    return new double[0];
+  }
+
+  // 2 Dimension
+  public static double[][] fill(int p1, int p2, double value)
+  {
+    if (p1 > 0 && p2 > 0)
+    {
+      double[][] array = new double[p1][p2];
+      Arrays.stream(array).forEach(arr -> Arrays.fill(arr, value));
+      return array;
+    }
+    return new double[0][0];
+  }
+
+  // 3 Dimension
+  public static double[][][] fill(int p1, int p2, int p3, double value)
+  {
+    if (p1 > 0 && p2 > 0 && p3 > 0)
+    {
+      double[][][] array = new double[p1][p2][p3];
+      for (double[][] row : array)
+      {
+        for (double[] rowColumn : row)
+        {
+          Arrays.fill(rowColumn, value);
+        }
+      }
+      return array;
+    }
+    return new double[0][0][0];
+  }
+
+  // 1 Dimension int
+  public static int[] fillInt(int p1, int value)
+  {
+    if (p1 > 0)
+    {
+      int[] array = new int[p1];
+      Arrays.fill(array, value);
+      return array;
+    }
+    return new int[0];
+  }
+
   // ABSOLUTE
 
   public static double[] fabs(double[] arr)
@@ -565,7 +677,7 @@ public class JNum
     {
       int row = arr.length;
       int column = arr[0].length;
-      if (row < 1 || column < 1)
+      if (column < 1 || row > 100)
       {
         return new double[0][0];
       } else
@@ -591,7 +703,7 @@ public class JNum
       int row = arr.length;
       int column = arr[0].length;
       int dimension = arr[0][0].length;
-      if (row < 1 || column < 1 || dimension < 1)
+      if (dimension < 1)
       {
         return new double[0][0][0];
       } else
@@ -613,44 +725,6 @@ public class JNum
     throw new NullPointerException("`Array` is null");
   }
 
-  // CHECK ARRAY SIZE
-
-  public static boolean checkArraySize(double[] firstArray, double[] secondArray)
-  {
-    if (firstArray != null && secondArray != null)
-    {
-      int lenFirst = firstArray.length;
-      int lenSecond = secondArray.length;
-      if (lenFirst == lenSecond)
-      {
-        return true;
-      } else
-      {
-        throw new SizeMismatchException("`firstArray` and `secondArray` should be same lenght");
-      }
-    }
-    throw new NullPointerException("`firstArray` or `secondArray` is null");
-  }
-
-  public static boolean checkArraySize(double[][] firstArray, double[][] secondArray)
-  {
-    if (firstArray != null && secondArray != null)
-    {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      int rowSecond = secondArray.length;
-      int colSecond = secondArray[0].length;
-      if (rowFirst == rowSecond || colFirst == colSecond || rowFirst == colSecond || rowSecond == colFirst)
-      {
-        return true;
-      }else
-      {
-        throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
-      }
-    }
-    throw new NullPointerException("`firstArray` or `secondArray` is null");
-  }
-
   // isEquals
 
   public static boolean isEquals(double[] arrFirst, double[] arrSecond)
@@ -659,9 +733,6 @@ public class JNum
     {
       for (int i = 0; i < arrFirst.length; i++)
       {
-                /*System.out.printf("%f and %f => dif = %f\tisEq = %b\n", arrFirst[i], arrSecond[i],
-                        Math.abs(arrFirst[i] - arrSecond[i]), compareDouble(arrFirst[i], arrSecond[i]));*/
-        //if (arrFirst[i] != arrSecond[i])
         if (!compareDouble(arrFirst[i], arrSecond[i]))
         {
           return false;

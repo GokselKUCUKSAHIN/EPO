@@ -111,13 +111,6 @@ public class UnitTest_JNum
     if (!JNum.isEquals(idiv, div)) throw new AssertionError();
   }
 
-  private static void test_array_mult()
-  {
-    double[][] mult = JNum.mult(sumBD, bravo);
-    //System.out.println(JNum.print2DArray(mult));
-    if (!JNum.isEquals(imul, mult)) throw new AssertionError();
-  }
-
   private static void test_array_div_mult()
   {
     double[] rand1 = Random.generateUniformRandomNumbers(20);
@@ -170,7 +163,7 @@ public class UnitTest_JNum
   private static void test_print_2d_array()
   {
     double[][] fill = JNum.fill(4, 5, Random.getUnifiedRandomNumber());
-    // System.out.println(JNum.print2DArray(fill));
+    // System.out.println(JNum.print2DArray(fill));_
   }
 
   private static void test_print_3d_array()
@@ -179,21 +172,38 @@ public class UnitTest_JNum
     // System.out.println(JNum.print3DArray(my3d));
   }
 
+  //
+
+  private static void test_array_mult_same()
+  {
+    double[][] multAff = JNum.multiply(sumBD, bravo);
+    if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_mult_modeOne()
+  {
+    double[][] multAff = JNum.multiply(sumBD, bravo);
+    if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+
+
   public static void doTest()
   {
     System.out.println("Starting JNum Unit Test...");
-    test_print_array();
-    test_print_2d_array();
-    test_print_3d_array();
-    test_array_equals();
-    test_fabs();
-    test_array_sum();
-    test_array_sub();
-    test_array_div();
-    test_array_mult();
-    test_special_mult();
-    test_array_div_mult();
-    test_compare();
+    //test_print_array();
+    //test_print_2d_array();
+    //test_print_3d_array();
+    //test_array_equals();
+    //test_fabs();
+    //test_array_sum();
+    //test_array_sub();
+    //test_array_div();
+    test_array_mult_same();
+    test_array_mult_modeOne();
+    //test_special_mult();
+    //test_array_div_mult();
+    //test_compare();
     System.out.println("JNum Unit Test is Succesful.\n");
   }
 }
