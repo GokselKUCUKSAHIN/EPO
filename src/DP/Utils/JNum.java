@@ -133,7 +133,7 @@ public class JNum
     {
       for (int j = 0; j < arr[0].length; j++)
       {
-        sb.append(String.format("%6.5f  ", doubles[j]));
+        sb.append(String.format("%6.8f  ", doubles[j]));
       }
       sb.append("\n");
     }
