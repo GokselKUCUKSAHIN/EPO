@@ -72,6 +72,43 @@ public class UnitTest_JNum
           {4, 30, 0, 3},
       };
 
+  private static final double[][] rowMat = new double[][]
+      {
+          {1, 2, 3, 4, 5}
+      };
+
+  private static final double[][] colMat = new double[][]
+      {
+          {5},
+          {1},
+          {2},
+          {3},
+          {4},
+      };
+
+  private static final double[][] testModeOne = new double[][]
+      {
+          {1, 6, 9, 1, 7},
+          {9, 6, 3, 4, 4},
+          {1, 3, 2, 4, 3},
+          {2, 5, 3, 7, 7},
+          {3, 6, 4, 3, 4},
+          {5, 9, 3, 8, 5},
+          {6, 7, 9, 7, 3},
+          {8, 0, 4, 7, 2},
+          {0, 6, 3, 1, 1},
+      };
+
+  private static final double[][] testModeTwo = new double[][]
+      {
+          {3, 2, 3, 4, 5, 6, 7, 5, 9},
+          {8, 5, 6, 7, 8, 9, 1, 2, 5},
+          {0, 2, 3, 4, 2, 6, 7, 8, 3},
+          {1, 2, 3, 4, 1, 9, 9, 8, 1},
+          {3, 4, 5, 6, 7, 6, 7, 8, 9},
+      };
+
+
   private static void test_array_equals()
   {
     if (!JNum.isEquals(charlie, delta)) throw new AssertionError();
@@ -176,17 +213,62 @@ public class UnitTest_JNum
 
   private static void test_array_mult_same()
   {
-    double[][] multAff = JNum.multiply(sumBD, bravo);
+    double[][] multAff = JNum.mult(sumBD, bravo);
+    if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_mult_modeZero()
+  {
+    double[][] multAff = JNum.mult(sumBD, bravo);
+    System.out.println("MODE 0");
     if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_mult_modeOne()
   {
-    double[][] multAff = JNum.multiply(sumBD, bravo);
-    if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+    double[][] multAff = JNum.mult(testModeOne, rowMat);
+    System.out.println("MODE 1");
+    System.out.println(JNum.print2DArray(multAff));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
+  private static void test_array_mult_modeTwo()
+  {
+    double[][] multAff = JNum.mult(testModeTwo, colMat);
+    System.out.println("MODE 2");
+    System.out.println(JNum.print2DArray(multAff));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
 
+  private static void test_array_mult_modeThree()
+  {
+    double[][] multAff = JNum.mult(rowMat, testModeOne);
+    System.out.println("MODE 3");
+    System.out.println(JNum.print2DArray(multAff));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_mult_modeFour()
+  {
+    double[][] multAff = JNum.mult(colMat, testModeTwo);
+    System.out.println("MODE 4");
+    System.out.println(JNum.print2DArray(multAff));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_row_col_mult()
+  {
+    double[][] multAff = JNum.mult(rowMat, colMat);
+    System.out.println("ROW COL");
+    System.out.println(JNum.print2DArray(multAff));
+  }
+
+  private static void test_col_row_mult()
+  {
+    double[][] multAff = JNum.mult(colMat, rowMat);
+    System.out.println("COL ROW");
+    System.out.println(JNum.print2DArray(multAff));
+  }
 
   public static void doTest()
   {
@@ -200,7 +282,13 @@ public class UnitTest_JNum
     //test_array_sub();
     //test_array_div();
     test_array_mult_same();
+    test_array_mult_modeZero();
     test_array_mult_modeOne();
+    test_array_mult_modeTwo();
+    test_array_mult_modeThree();
+    test_array_mult_modeFour();
+    test_col_row_mult();
+    test_row_col_mult();
     //test_special_mult();
     //test_array_div_mult();
     //test_compare();

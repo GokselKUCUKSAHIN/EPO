@@ -1,3 +1,5 @@
+
+
 /*
 MIT License
 
@@ -21,7 +23,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-
+/*
 package DP.Utils;
 
 import DP.Exceptions.NonPositiveSizeException;
@@ -30,7 +32,7 @@ import com.sun.istack.internal.NotNull;
 
 import java.util.Arrays;
 
-public class JNum
+public class XNum
 {
 
   public static final double TRUE = Double.POSITIVE_INFINITY;
@@ -68,30 +70,6 @@ public class JNum
     return sb.toString();
   }
 
-  public static double[][] getGrid(double step, double[] lb, double[] ub)
-  {
-    // Check Step
-    if (step <= 0)
-    {
-      throw new NonPositiveSizeException("`step` should be greater than 0");
-    }
-    // Check Bound sizes
-    if (lb.length != lb.length)
-    {
-      throw new SizeMismatchException("`lowerBound` and `upperBound` arrays should be same size");
-    }
-    // Validate Bounds
-    if (!checkBounds(lb, ub))
-    {
-      return new double[0][0];
-    }
-    // Create table
-    int[] table = fillInt(lb.length, 0);
-
-    // TODO IMPLEMENT HERE
-    return new double[0][0];
-  }
-
   private static boolean checkBounds(double[] lowerBound, double[] upperBound)
   {
     if (lowerBound.length == upperBound.length)
@@ -127,116 +105,6 @@ public class JNum
       throw new NonPositiveSizeException("`array` should have minimum 1 item");
     }
   }
-
-  // EXP
-
-  public static double[][] exp(double[][] array)
-  {
-    if (array != null && array.length > 0)
-    {
-      int row = array.length;
-      int col = array[0].length;
-      double[][] result = new double[row][col];
-      for (int i = 0; i < row; i++)
-      {
-        for (int j = 0; j < col; j++)
-        {
-          result[i][j] = Math.exp(array[i][j]);
-        }
-      }
-      return result;
-    }
-    return new double[0][0];
-  }
-
-  // DIVIDE
-
-  public static double[] div(double[] array, double number)
-  {
-    if (number == 0)
-    {
-      throw new ArithmeticException("Divided by Zero");
-    } else
-    {
-      return mult(array, 1 / number);
-    }
-  }
-
-  public static double[][] div(double[][] array, double number)
-  {
-    if (number == 0)
-    {
-      throw new ArithmeticException("Divided by Zero");
-    } else
-    {
-      return mult(array, 1 / number);
-    }
-  }
-
-  public static double[][] div(double[][] array, double[] numberArr)
-  {
-    if (array != null && numberArr != null)
-    {
-      int arrRow = array.length;
-      int arrCol = array[0].length;
-      int numLen = numberArr.length;
-      if (numLen == arrCol)
-      {
-        double[][] result = new double[arrRow][arrCol];
-        for (int i = 0; i < arrRow; i++)
-        {
-          for (int j = 0; j < arrCol; j++)
-          {
-            result[i][j] = array[i][j] * 1 / numberArr[j];
-          }
-        }
-        return result;
-      } else
-      {
-        throw new SizeMismatchException("`array` and `numberArr` not compatible");
-      }
-    } else
-    {
-      throw new NullPointerException("`array` or `numberArr` is null");
-    }
-  }
-
-  public static double[] div(double[] firstArray, double[] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int lenFirst = firstArray.length;
-      double[] result = new double[lenFirst];
-      for (int i = 0; i < lenFirst; i++)
-      {
-        result[i] = firstArray[i] / secondArray[i];
-      }
-      return result;
-    }
-    return new double[0];
-  }
-
-  public static double[][] div(double[][] firstArray, double[][] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      double[][] result = new double[rowFirst][colFirst];
-      for (int i = 0; i < rowFirst; i++)
-      {
-        for (int j = 0; j < colFirst; j++)
-        {
-          result[i][j] = firstArray[i][j] / secondArray[i][j];
-        }
-      }
-      return result;
-    }
-    return new double[0][0];
-  }
-
-  // MULTIPLY
-
 
   public static double[][] mult(@NotNull double[][] firstArray, @NotNull double[][] secondArray)
   {
@@ -386,127 +254,6 @@ public class JNum
 
   // CHECK
 
-  // SUM
-
-  public static double[] sum(double[] array, double number)
-  {
-    if (array != null)
-    {
-      if (array.length > 0)
-      {
-        double[] filledArray = fill(array.length, number);
-        return sum(array, filledArray);
-      } else
-      {
-        throw new NonPositiveSizeException("`array` size should > 0");
-      }
-    } else
-    {
-      throw new NullPointerException("`array` is null");
-    }
-  }
-
-  public static double[][] sum(double[][] array, double number)
-  {
-    if (array != null)
-    {
-      if (array.length > 0 && array[0].length > 0)
-      {
-        double[][] filledArray = fill(array.length, array[0].length, number);
-        return sum(array, filledArray);
-      } else
-      {
-        throw new NonPositiveSizeException("`array` size should > 0");
-      }
-    } else
-    {
-      throw new NullPointerException("`array` is null");
-    }
-  }
-
-  public static double[] sum(double[] firstArray, double[] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int lenFirst = firstArray.length;
-      double[] result = new double[lenFirst];
-      for (int i = 0; i < lenFirst; i++)
-      {
-        result[i] = firstArray[i] + secondArray[i];
-      }
-      return result;
-    }
-    return new double[0];
-  }
-
-  public static double[][] sum(double[][] firstArray, double[][] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      double[][] result = new double[rowFirst][colFirst];
-      for (int i = 0; i < rowFirst; i++)
-      {
-        for (int j = 0; j < colFirst; j++)
-        {
-          result[i][j] = firstArray[i][j] + secondArray[i][j];
-        }
-      }
-      return result;
-    }
-    return new double[0][0];
-  }
-
-  // SUBTRACT
-
-  public static double[] sub(double[] array, double number)
-  {
-    return sum(array, -1 * number);
-  }
-
-  public static double[][] sub(double[][] array, double number)
-  {
-    return sum(array, -1 * number);
-  }
-
-  public static double[] sub(double[] firstArray, double[] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int lenFirst = firstArray.length;
-      double[] result = new double[lenFirst];
-      for (int i = 0; i < lenFirst; i++)
-      {
-        result[i] = firstArray[i] - secondArray[i];
-      }
-      return result;
-    }
-    return new double[0];
-  }
-
-  public static double[][] sub(double[][] firstArray, double[][] secondArray)
-  {
-    if (checkArraySize(firstArray, secondArray))
-    {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      double[][] result = new double[rowFirst][colFirst];
-      for (int i = 0; i < rowFirst; i++)
-      {
-        for (int j = 0; j < colFirst; j++)
-        {
-          result[i][j] = firstArray[i][j] - secondArray[i][j];
-        }
-      }
-      return result;
-    }
-    return new double[0][0];
-  }
-
-
-  // CHECK ARRAY SIZE
-
   public static boolean checkArraySize(double[] firstArray, double[] secondArray)
   {
     if (firstArray != null && secondArray != null)
@@ -523,30 +270,6 @@ public class JNum
     }
     throw new NullPointerException("`firstArray` or `secondArray` is null");
   }
-
-  public static boolean checkArraySize(double[][] firstArray, double[][] secondArray)
-  {
-    if (firstArray != null && secondArray != null)
-    {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      int rowSecond = secondArray.length;
-      int colSecond = secondArray[0].length;
-      if (rowFirst == rowSecond || colFirst == colSecond || rowFirst == colSecond || rowSecond == colFirst)
-      {
-        return true;
-      } else
-      {
-        throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
-      }
-    }
-    throw new NullPointerException("`firstArray` or `secondArray` is null");
-  }
-
-
-
-
-  // SAFE TO STORE
 
   // ZEROS
   public static double[] zeros(int n_variables)
@@ -734,9 +457,11 @@ public class JNum
   {
     try
     {
-      if (checkArraySize(arrFirst, arrSecond))
+      Shape shar1 = new Shape(arrFirst);
+      Shape shar2 = new Shape(arrSecond);
+      if (Shape.getMode(shar1, shar2) == 0)
       {
-        for (int i = 0; i < arrFirst.length; i++)
+        for (int i = 0; i < shar1.row; i++)
         {
           if (!isEquals(arrFirst[i], arrSecond[i]))
           {
@@ -765,3 +490,4 @@ public class JNum
     }
   }
 }
+*/

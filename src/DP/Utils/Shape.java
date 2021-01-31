@@ -79,6 +79,18 @@ public class Shape
     return (this.row == other.row && other.col == 1);
   }
 
+  public boolean isModeFive(Shape other)
+  {
+    return (this.row == 1 && other.col == 1);
+  }
+
+  public boolean isModeSix(Shape other)
+  {
+    return (this.col == 1 && other.row == 1);
+  }
+
+
+
   public static int getMode(@NotNull Shape shar1, @NotNull Shape shar2)
   {
     // TODO can done with Enums
@@ -108,7 +120,17 @@ public class Shape
       // mode 4
       // AxZ and Ax1
       return 4;
-    } else
+    } else if (shar1.isModeFive(shar2))
+    {
+      // mode 5
+      // Ax1 and 1xB
+      return 5;
+    } else if (shar1.isModeSix(shar2))
+    {
+      // mode 6
+      // 1xB and Ax1
+      return 6;
+    }
     {
       return -1;
     }
