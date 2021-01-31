@@ -260,70 +260,83 @@ public class UnitTest_JNum
     //System.out.println(JNum.print2DArray(multAff));
   }
 
-  //
   private static void test_array_div_modeOne()
   {
     double[][] div = JNum.div(testModeOne, rowMat);
-    System.out.println("MODE 1");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 1");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_div_reverse_modeOne()
   {
     double[][] div = JNum.div(rowMat, testModeOne);
-    System.out.println("MODE 1 Reverse");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 1 Reverse");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_div_modeTwo()
   {
     double[][] div = JNum.div(testModeTwo, colMat);
-    System.out.println("MODE 2");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 2");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_div_reverse_modeTwo()
   {
     double[][] div = JNum.div(colMat, testModeTwo);
-    System.out.println("MODE 2 Reverse");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 2 Reverse");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
-
 
   private static void test_array_div_modeThree()
   {
     double[][] div = JNum.div(rowMat, testModeOne);
-    System.out.println("MODE 3");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 3");
+    //System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_reverse_modeThree()
+  {
+    double[][] div = JNum.div(testModeOne, rowMat);
+    //System.out.println("MODE 3 Reverse");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_div_modeFour()
   {
     double[][] div = JNum.div(colMat, testModeTwo);
-    System.out.println("MODE 4");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("MODE 4");
+    //System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_reversed_modeFour()
+  {
+    double[][] div = JNum.div(testModeTwo, colMat);
+    //System.out.println("MODE 4 Reverse");
+    //System.out.println(JNum.print2DArray(div));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_row_col_div()
   {
     double[][] div = JNum.div(rowMat, colMat);
-    System.out.println("ROW COL");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("ROW COL");
+    //System.out.println(JNum.print2DArray(div));
   }
 
   private static void test_col_row_div()
   {
     double[][] div = JNum.div(colMat, rowMat);
-    System.out.println("COL ROW");
-    System.out.println(JNum.print2DArray(div));
+    //System.out.println("COL ROW");
+    //System.out.println(JNum.print2DArray(div));
   }
-  //
 
   public static void doTest()
   {
@@ -347,11 +360,13 @@ public class UnitTest_JNum
     test_array_div_modeOne();
     test_array_div_reverse_modeOne();
     test_array_div_modeTwo();
-    //test_array_div_reverse_modeTwo();
-    //test_array_div_modeThree();
-    //test_array_div_modeFour();
-    //test_col_row_div();
-    //test_row_col_div();
+    test_array_div_reverse_modeTwo();
+    test_array_div_modeThree();
+    test_array_div_reverse_modeThree();
+    test_array_div_modeFour();
+    test_array_div_reversed_modeFour();
+    test_col_row_div();
+    test_row_col_div();
     test_array_div_mult();
     test_compare();
     System.out.println("JNum Unit Test is Succesful.\n");
