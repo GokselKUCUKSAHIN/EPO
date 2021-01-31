@@ -1,5 +1,6 @@
 package Test.DP;
 
+import DP.Utils.JNum;
 import Test.DP.Core.UnitTest_Agent;
 import Test.DP.Core.UnitTest_Func;
 import Test.DP.Core.UnitTest_Optimizer;
@@ -10,20 +11,20 @@ import Test.DP.Utils.UnitTest_JNum;
 public class TestMain
 {
 
-  public static void main(String[] args)
-  {
-    // Core
-    UnitTest_Agent.doTest();
-    UnitTest_Func.doTest();
-    UnitTest_Optimizer.doTest();
+    public static void main(String[] args)
+    {
+        // Core
+        UnitTest_Agent.doTest();
+        UnitTest_Func.doTest();
+        UnitTest_Optimizer.doTest();
 
-    // Math
-    UnitTest_Math.doTest();
+        // Math
+        UnitTest_Math.doTest();
 
-    // Utils
-    UnitTest_JNum.doTest();
+        // Utils
+        UnitTest_JNum.doTest();
 
-    // Optimizers
-    UnitTest_EPO.doTest();
-  }
+        // Optimizers
+        UnitTest_EPO.doTest();
+    }
 }

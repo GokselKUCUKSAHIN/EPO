@@ -115,7 +115,28 @@ public class UnitTest_JNum
     double[] res = JNum.div(JNum.mult(rand1, rand2), rand2);
     //System.out.println(JNum.printArray(res));
     //System.out.println(JNum.printArray(rand1));
-    //if (!JNum.isEquals(rand1, res)) throw new AssertionError();
+    if (!JNum.isEquals(rand1, res)) throw new AssertionError();
+  }
+
+  private static void test_compare()
+  {
+    boolean r1 = JNum.compareDouble(3, Double.POSITIVE_INFINITY);
+    if (r1) throw new AssertionError();
+
+    boolean r2 = JNum.compareDouble(Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY);
+    if (r2) throw new AssertionError();
+
+    boolean r3 = JNum.compareDouble(Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+    if (!r3) throw new AssertionError();
+
+    boolean r4 = JNum.compareDouble(123, Double.NaN);
+    if (r4) throw new AssertionError();
+
+    boolean r5 = JNum.compareDouble(0, 0);
+    if (!r5) throw new AssertionError();
+
+    boolean r6 = JNum.compareDouble(Double.NaN, Double.NaN);
+    if (!r6) throw new AssertionError();
   }
 
   private static void test_fabs()
@@ -143,6 +164,7 @@ public class UnitTest_JNum
     test_array_div();
     test_array_mult();
     test_array_div_mult();
+    test_compare();
     System.out.println("JNum Unit Test is Succesful.\n");
   }
 }
