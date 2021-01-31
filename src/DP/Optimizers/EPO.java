@@ -112,11 +112,21 @@ public class EPO extends Optimizer
            space (Space): A Space object that will be evaluated.
            function (Function): A Function object that will be used as the objective function.
            store_best_only (bool): If True, only the best agent of each iteration is stored in History.
-           pre_evaluation (callable): This function is executed before evaluating the function being optimized.
-       Returns:
-           A History object holding all agents' positions and fitness achieved during the task.
       */
 
+    for (int t = 0; t < space.getN_Iterations(); t++)
+    {
+      // Updating agents
+      this.update(space.getAgents(), space.getBestAgent(), t, space.getN_Iterations());
 
+      // Checking if agents meet the bounds limits
+      space.clipLimits();
+
+      // After the update, we need to re-evaluate the search space
+      this.evaluate(space, function);
+      System.out.printf("Fitness: %6.10f\n", space.getBestAgent().getFit());
+      double[][] bestPosition = space.getBestAgent().getPositions();
+      System.out.printf("Position: %s\n", JNum.print2DArray(bestPosition));
+    }
   }
 }

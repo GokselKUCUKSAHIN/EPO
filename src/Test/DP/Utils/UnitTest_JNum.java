@@ -78,6 +78,16 @@ public class UnitTest_JNum
     if (JNum.isEquals(echo, delta)) throw new AssertionError();
   }
 
+  private static void test_fabs()
+  {
+    double[] negativeArr = JNum.fill(5, -2);
+    //System.out.println(JNum.printArray(negativeArr));
+    negativeArr = JNum.fabs(negativeArr);
+    double[] control = JNum.fill(5, 2);
+    if (!JNum.isEquals(negativeArr, control)) throw new AssertionError();
+    //System.out.println(JNum.printArray(negativeArr));
+  }
+
   private static void test_array_sum()
   {
     double[][] sum = JNum.sum(bravo, delta);
@@ -139,25 +149,31 @@ public class UnitTest_JNum
     if (!r6) throw new AssertionError();
   }
 
-  private static void test_fabs()
+  private static void test_print_array()
   {
-    double[] negativeArr = JNum.fill(5, -2);
-    //System.out.println(JNum.printArray(negativeArr));
-    negativeArr = JNum.fabs(negativeArr);
-    //System.out.println(JNum.printArray(negativeArr));
+    double[] rand = Random.generateUniformRandomNumbers(10);
+    // System.out.println(JNum.printArray(rand) + "\n");
+  }
+
+  private static void test_print_2d_array()
+  {
+    double[][] fill = JNum.fill(4, 5, Random.getUnifiedRandomNumber());
+    // System.out.println(JNum.print2DArray(fill));
   }
 
   private static void test_print_3d_array()
   {
     double[][][] my3d = JNum.ones(3, 4, 5);
-    //System.out.println(JNum.print3DArray(my3d));
+    // System.out.println(JNum.print3DArray(my3d));
   }
 
   public static void doTest()
   {
     System.out.println("Starting JNum Unit Test...");
-    test_array_equals();
+    test_print_array();
+    test_print_2d_array();
     test_print_3d_array();
+    test_array_equals();
     test_fabs();
     test_array_sum();
     test_array_sub();

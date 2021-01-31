@@ -22,7 +22,7 @@ public abstract class Space
   //
   private Agent bestAgent;
   //
-  private ArrayList<? extends Agent> agents; // Agent of Child of Agent
+  private ArrayList<Agent> agents; // Agent of Child of Agent
 
   public Space()
   {
@@ -104,12 +104,12 @@ public abstract class Space
     }
   }
 
-  public ArrayList<? extends Agent> getAgents()
+  public ArrayList<Agent> getAgents()
   {
     return this.agents;
   }
 
-  public void setAgents(ArrayList<? extends Agent> agents)
+  public void setAgents(ArrayList<Agent> agents)
   {
     if (agents != null)
     {
