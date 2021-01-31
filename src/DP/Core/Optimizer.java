@@ -129,6 +129,7 @@ public abstract class Optimizer
       agent.setFit(func.apply(agent.getPositions()));
       if (agent.getFit() < space.getBestAgent().getFit())
       {
+
         space.getBestAgent().setPositions(agent.getPositions());
         space.getBestAgent().setFit(agent.getFit());
       }
@@ -138,5 +139,5 @@ public abstract class Optimizer
   // ABSTRACT REGION
   public abstract void update(ArrayList<Agent> agents, Agent bestAgent, int iteration, int nIteration);
 
-  public abstract void run(Space space, Func function, boolean storeBestOnly, Func preEvalution);
+  public abstract void run(Space space, Func function, boolean storeBestOnly);
 }

@@ -37,7 +37,7 @@ public abstract class Space
     this.setN_Iterations(n_Iterations);
     //
     setBuilt(false);
-    setBestAgent(new Agent());
+    setBestAgent(new Agent(getN_Variables(),getN_Dimensions()));
   }
 
   public int getN_Agents()

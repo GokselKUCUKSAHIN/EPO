@@ -1,7 +1,13 @@
 package Test.DP.Optimizer;
 
 import DP.Core.Attribute;
+import DP.Core.Func;
 import DP.Optimizers.EPO;
+import DP.Spaces.SearchSpace;
+import DP.Utils.JNum;
+import Test.DP.Core.UnitTest_Func;
+
+import java.util.function.Function;
 
 public class UnitTest_EPO
 {
@@ -47,12 +53,47 @@ public class UnitTest_EPO
     if (myEPO.getAttrCount() != 4) throw new AssertionError();
   }
 
+  public static double square(double[][] args)
+  {
+    double sum = 0;
+    for (double[] row : args)
+    {
+      for (double num : row)
+      {
+        sum += num * num;
+      }
+    }
+    return sum;
+  }
+  public static double cubeplus5(double[][] args)
+  {
+    double sum = 0;
+    for (double[] row : args)
+    {
+      for (double num : row)
+      {
+        sum += num * num * num + 5;
+      }
+    }
+    return sum;
+  }
+  private static void test_epo_run()
+  {
+    Function<double[][], Double> square = UnitTest_EPO::cubeplus5;
+    Func func = new Func(square);
+    EPO myEPO = new EPO();
+    SearchSpace mySpace = new SearchSpace(10, 2, 100, JNum.zeros(2), JNum.fill(2, 10));
+    myEPO.run(mySpace, func, false);
+  }
+
+
   public static void doTest()
   {
     System.out.println("Starting EPO Unit Test...");
     test_create_instance();
     test_hyperparameters();
     test_get_set_hyperparameters();
+    test_epo_run();
     System.out.println("EPO Unit Test is Succesful.\n");
   }
 }

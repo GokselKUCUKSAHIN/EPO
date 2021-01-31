@@ -38,10 +38,17 @@ public class SearchSpace extends Space
   @Override
   public void initializeAgents()
   {
+    // Init Best Agent
+    this.getBestAgent().setLb(getLb());
+    this.getBestAgent().setUb(getUb());
+    this.getBestAgent().setFit(Double.POSITIVE_INFINITY);
+
+    // Init other Agents
     for (Agent agent : getAgents())
     {
       agent.setLb(getLb());
       agent.setUb(getUb());
+      agent.setFit(Double.POSITIVE_INFINITY);
       for (int i = 0; i < getN_Variables(); i++)
       {
         double lb = agent.getLb()[i];

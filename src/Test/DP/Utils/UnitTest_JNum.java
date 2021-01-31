@@ -149,6 +149,18 @@ public class UnitTest_JNum
     if (!r6) throw new AssertionError();
   }
 
+  private static void test_special_mult()
+  {
+    double[][] debug = JNum.mult(absSubBD, JNum.fill(4, 10));
+    System.out.println(JNum.print2DArray(debug));
+    //assert JNum.isEquals(debug,JNum.zeros(4,3));
+
+    double[][] weird = new double[][]{{5}, {6}, {7}};
+    double[] test = new double[]{2, 3, 4};
+    double[][] odd = JNum.mult(weird, test);
+    System.out.println(JNum.print2DArray(odd));
+  }
+
   private static void test_print_array()
   {
     double[] rand = Random.generateUniformRandomNumbers(10);
@@ -179,6 +191,7 @@ public class UnitTest_JNum
     test_array_sub();
     test_array_div();
     test_array_mult();
+    test_special_mult();
     test_array_div_mult();
     test_compare();
     System.out.println("JNum Unit Test is Succesful.\n");

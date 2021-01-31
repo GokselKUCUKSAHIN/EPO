@@ -25,10 +25,11 @@ public class Agent
     // n_Dimensions (int): Number of dimensions.
     setN_Variables(nVariables);
     setN_Dimensions(nDimensions);
-    positions = JNum.zeros(n_Variables, n_Dimensions);
+    //positions = JNum.zeros(n_Variables, n_Dimensions);
+    setPositions(JNum.zeros(getN_Variables(), getN_Dimensions()));
     fit = Double.POSITIVE_INFINITY;
-    lb = JNum.zeros(n_Variables);
-    ub = JNum.ones(n_Variables);
+    setLb(JNum.zeros(getN_Variables()));
+    setUb(JNum.ones(getN_Variables()));
   }
 
   public int getN_Variables()

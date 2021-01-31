@@ -79,7 +79,9 @@ public class EPO extends Optimizer
 
       // Calculates the polygon grid accuracy (Eq. 10)
       // P_grid = np.fabs(best_agent.position - agent.position)
-      final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
+      //final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
+      double[][] subResult = JNum.sub(bestAgent.getPositions(), agent.getPositions());
+      final double[][] P_grid = JNum.fabs(subResult);
 
       // Generates a uniform random number and the `C` coefficient
       double r1 = Random.getUnifiedRandomNumber();
@@ -95,7 +97,13 @@ public class EPO extends Optimizer
 
       // Calculates the distance between current agent and emperor penguin (Eq. 8)
       // D_ep = np.fabs(S * best_agent.position - C * agent.position)
-      final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
+      //final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
+      double[][] multResult1 = JNum.mult(bestAgent.getPositions(), S);
+      //System.out.println(JNum.printArray(C));
+      //System.out.println(JNum.print2DArray(agent.getPositions()));
+      double[][] multResult2 = JNum.mult(agent.getPositions(), C);
+      double[][] subRes = JNum.sub(multResult1, multResult2);
+      final double[][] D_ep = JNum.fabs(subRes);
 
       // Updates current agent's position (Eq. 13)
       // agent.position = best_agent.position - A * D_ep
@@ -104,7 +112,7 @@ public class EPO extends Optimizer
   }
 
   @Override
-  public void run(Space space, Func function, boolean storeBestOnly, Func preEvalution)
+  public void run(Space space, Func function, boolean storeBestOnly)
   {
      /*
      Runs the optimization pipeline.
@@ -126,7 +134,7 @@ public class EPO extends Optimizer
       this.evaluate(space, function);
       System.out.printf("Fitness: %6.10f\n", space.getBestAgent().getFit());
       double[][] bestPosition = space.getBestAgent().getPositions();
-      System.out.printf("Position: %s\n", JNum.print2DArray(bestPosition));
+      System.out.printf("Position:\n%s\n", JNum.print2DArray(bestPosition));
     }
   }
 }
