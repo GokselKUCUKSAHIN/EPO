@@ -6,6 +6,7 @@ import DP.Utils.JNum;
 public class UnitTest_JNum
 {
 
+  // TEST ARRAYS
   private static final double[] alfa = new double[]{4, 3, 7, 2, 4, 6, 8, 2, 1, 7};
 
   private static final double[][] bravo = new double[][]
@@ -95,15 +96,15 @@ public class UnitTest_JNum
           {3, 6, 4, 3, 4},
           {5, 9, 3, 8, 5},
           {6, 7, 9, 7, 3},
-          {8, 0, 4, 7, 2},
-          {0, 6, 3, 1, 1},
+          {8, 3, 4, 7, 2},
+          {5, 6, 3, 1, 1},
       };
 
   private static final double[][] testModeTwo = new double[][]
       {
           {3, 2, 3, 4, 5, 6, 7, 5, 9},
           {8, 5, 6, 7, 8, 9, 1, 2, 5},
-          {0, 2, 3, 4, 2, 6, 7, 8, 3},
+          {5, 2, 3, 4, 2, 6, 7, 8, 3},
           {1, 2, 3, 4, 1, 9, 9, 8, 1},
           {3, 4, 5, 6, 7, 6, 7, 8, 9},
       };
@@ -179,17 +180,7 @@ public class UnitTest_JNum
     if (!r6) throw new AssertionError();
   }
 
-  private static void test_special_mult()
-  {
-    double[][] debug = JNum.mult(absSubBD, JNum.fill(4, 10));
-    System.out.println(JNum.print2DArray(debug));
-    //assert JNum.isEquals(debug,JNum.zeros(4,3));
-
-    double[][] weird = new double[][]{{5}, {6}, {7}};
-    double[] test = new double[]{2, 3, 4};
-    double[][] odd = JNum.mult(weird, test);
-    System.out.println(JNum.print2DArray(odd));
-  }
+  // PRINT ARRAY
 
   private static void test_print_array()
   {
@@ -209,7 +200,7 @@ public class UnitTest_JNum
     // System.out.println(JNum.print3DArray(my3d));
   }
 
-  //
+  // MULT
 
   private static void test_array_mult_same()
   {
@@ -220,67 +211,131 @@ public class UnitTest_JNum
   private static void test_array_mult_modeZero()
   {
     double[][] multAff = JNum.mult(sumBD, bravo);
-    System.out.println("MODE 0");
     if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_mult_modeOne()
   {
     double[][] multAff = JNum.mult(testModeOne, rowMat);
-    System.out.println("MODE 1");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("MODE 1");
+    //System.out.println(JNum.print2DArray(multAff));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_mult_modeTwo()
   {
     double[][] multAff = JNum.mult(testModeTwo, colMat);
-    System.out.println("MODE 2");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("MULT MODE 2");
+    //System.out.println(JNum.print2DArray(multAff));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_mult_modeThree()
   {
     double[][] multAff = JNum.mult(rowMat, testModeOne);
-    System.out.println("MODE 3");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("MODE 3");
+    //System.out.println(JNum.print2DArray(multAff));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_array_mult_modeFour()
   {
     double[][] multAff = JNum.mult(colMat, testModeTwo);
-    System.out.println("MODE 4");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("MODE 4");
+    //System.out.println(JNum.print2DArray(multAff));
     //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
   }
 
   private static void test_row_col_mult()
   {
     double[][] multAff = JNum.mult(rowMat, colMat);
-    System.out.println("ROW COL");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("ROW COL");
+    //System.out.println(JNum.print2DArray(multAff));
   }
 
   private static void test_col_row_mult()
   {
     double[][] multAff = JNum.mult(colMat, rowMat);
-    System.out.println("COL ROW");
-    System.out.println(JNum.print2DArray(multAff));
+    //System.out.println("COL ROW");
+    //System.out.println(JNum.print2DArray(multAff));
   }
+
+  //
+  private static void test_array_div_modeOne()
+  {
+    double[][] div = JNum.div(testModeOne, rowMat);
+    System.out.println("MODE 1");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_reverse_modeOne()
+  {
+    double[][] div = JNum.div(rowMat, testModeOne);
+    System.out.println("MODE 1 Reverse");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_modeTwo()
+  {
+    double[][] div = JNum.div(testModeTwo, colMat);
+    System.out.println("MODE 2");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_reverse_modeTwo()
+  {
+    double[][] div = JNum.div(colMat, testModeTwo);
+    System.out.println("MODE 2 Reverse");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+
+  private static void test_array_div_modeThree()
+  {
+    double[][] div = JNum.div(rowMat, testModeOne);
+    System.out.println("MODE 3");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_array_div_modeFour()
+  {
+    double[][] div = JNum.div(colMat, testModeTwo);
+    System.out.println("MODE 4");
+    System.out.println(JNum.print2DArray(div));
+    //if (!JNum.isEquals(imul, multAff)) throw new AssertionError();
+  }
+
+  private static void test_row_col_div()
+  {
+    double[][] div = JNum.div(rowMat, colMat);
+    System.out.println("ROW COL");
+    System.out.println(JNum.print2DArray(div));
+  }
+
+  private static void test_col_row_div()
+  {
+    double[][] div = JNum.div(colMat, rowMat);
+    System.out.println("COL ROW");
+    System.out.println(JNum.print2DArray(div));
+  }
+  //
 
   public static void doTest()
   {
     System.out.println("Starting JNum Unit Test...");
-    //test_print_array();
-    //test_print_2d_array();
-    //test_print_3d_array();
-    //test_array_equals();
-    //test_fabs();
-    //test_array_sum();
-    //test_array_sub();
-    //test_array_div();
+    test_print_array();
+    test_print_2d_array();
+    test_print_3d_array();
+    test_array_equals();
+    test_fabs();
+    test_array_sum();
+    test_array_sub();
+    test_array_div();
     test_array_mult_same();
     test_array_mult_modeZero();
     test_array_mult_modeOne();
@@ -289,9 +344,16 @@ public class UnitTest_JNum
     test_array_mult_modeFour();
     test_col_row_mult();
     test_row_col_mult();
-    //test_special_mult();
-    //test_array_div_mult();
-    //test_compare();
+    test_array_div_modeOne();
+    test_array_div_reverse_modeOne();
+    test_array_div_modeTwo();
+    //test_array_div_reverse_modeTwo();
+    //test_array_div_modeThree();
+    //test_array_div_modeFour();
+    //test_col_row_div();
+    //test_row_col_div();
+    test_array_div_mult();
+    test_compare();
     System.out.println("JNum Unit Test is Succesful.\n");
   }
 }
