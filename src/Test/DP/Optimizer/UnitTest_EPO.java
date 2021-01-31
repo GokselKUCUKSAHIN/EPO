@@ -25,7 +25,7 @@ public class UnitTest_EPO
     EPO myEPO = new EPO("Penguins are Cute");
 
     if (!myEPO.getName().equals("Penguins are Cute")) throw new AssertionError();
-    if (myEPO.getAttrCount() != 0) throw new AssertionError();
+    if (myEPO.getAttrCount() != 2) throw new AssertionError();
 
   }
 
@@ -33,19 +33,19 @@ public class UnitTest_EPO
   {
     EPO myEPO = new EPO("HyperBeast");
     myEPO.setHyperparams(new Attribute("diameter", 2.15));
-    if (myEPO.getAttrCount() != 1) throw new AssertionError();
+    if (myEPO.getAttrCount() != 3) throw new AssertionError();
 
     if (myEPO.getAttr("diameter") != 2.15) throw new AssertionError();
 
     myEPO.setAttr("area", 3.1415);
-    if (myEPO.getAttrCount() != 2) throw new AssertionError();
+    if (myEPO.getAttrCount() != 4) throw new AssertionError();
 
     myEPO.setAttr("diameter", 5.56);
     if (myEPO.getAttr("diameter") != 5.56) throw new AssertionError();
-    if (myEPO.getAttrCount() != 2) throw new AssertionError();
+    if (myEPO.getAttrCount() != 4) throw new AssertionError();
 
     myEPO.setAttr("", -1);
-    if (myEPO.getAttrCount() != 2) throw new AssertionError();
+    if (myEPO.getAttrCount() != 4) throw new AssertionError();
   }
 
   public static void doTest()
