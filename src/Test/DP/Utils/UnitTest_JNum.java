@@ -1,5 +1,6 @@
 package Test.DP.Utils;
 
+import DP.Math.Random;
 import DP.Utils.JNum;
 
 public class UnitTest_JNum
@@ -56,6 +57,7 @@ public class UnitTest_JNum
           {-3, -2.272727272727273, -1.2666666666666666, 5},
           {-4.5, 1.8666666666666667, Double.POSITIVE_INFINITY, -1.6666666666666667}
       };
+
   private static final double[][] imul = new double[][]
       {
           {13, 16, 39, 84},
@@ -99,19 +101,29 @@ public class UnitTest_JNum
     if (!JNum.isEquals(idiv, div)) throw new AssertionError();
   }
 
+  private static void test_array_mult()
+  {
+    double[][] mult = JNum.mult(sumBD, bravo);
+    //System.out.println(JNum.print2DArray(mult));
+    if (!JNum.isEquals(imul, mult)) throw new AssertionError();
+  }
+
+  private static void test_array_div_mult()
+  {
+    double[] rand1 = Random.generateUniformRandomNumbers(20);
+    double[] rand2 = Random.generateUniformRandomNumbers(20);
+    double[] res = JNum.div(JNum.mult(rand1, rand2), rand2);
+    //System.out.println(JNum.printArray(res));
+    //System.out.println(JNum.printArray(rand1));
+    //if (!JNum.isEquals(rand1, res)) throw new AssertionError();
+  }
+
   private static void test_fabs()
   {
     double[] negativeArr = JNum.fill(5, -2);
     //System.out.println(JNum.printArray(negativeArr));
     negativeArr = JNum.fabs(negativeArr);
     //System.out.println(JNum.printArray(negativeArr));
-  }
-
-  private static void test_array_mult()
-  {
-    double[][] mult = JNum.mult(sumBD, bravo);
-    //System.out.println(JNum.print2DArray(mult));
-    if (!JNum.isEquals(imul, mult)) throw new AssertionError();
   }
 
   private static void test_print_3d_array()
@@ -130,6 +142,7 @@ public class UnitTest_JNum
     test_array_sub();
     test_array_div();
     test_array_mult();
+    test_array_div_mult();
     System.out.println("JNum Unit Test is Succesful.\n");
   }
 }
