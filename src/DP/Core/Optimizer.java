@@ -70,8 +70,6 @@ public abstract class Optimizer
   public double getAttr(String name)
   {
     // Check key into HashMap if not
-    //Object hold = this.hyperparams.get(name);
-    //return (hold == null ? 0.0 / 0.0 : (double) hold);
     if (hyperparams.containsKey(name))
     {
       return hyperparams.get(name);
@@ -111,8 +109,11 @@ public abstract class Optimizer
       }
     }
     setBuilt(true);
+    /*
     System.out.printf("Algorithm: %s | Hyperparameters: %s | \nBuilt: %s.\n",
         getName(), Attribute.getPairs(hyperparams), isBuilt()); // TODO Change this to LOG
+
+    */
   }
 
   @Override

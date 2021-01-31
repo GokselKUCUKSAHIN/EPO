@@ -26,7 +26,6 @@ public class UnitTest_EPO
 
     if (!myEPO.getName().equals("Penguins are Cute")) throw new AssertionError();
     if (myEPO.getAttrCount() != 2) throw new AssertionError();
-
   }
 
   private static void test_get_set_hyperparameters()

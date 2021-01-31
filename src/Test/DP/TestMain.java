@@ -12,18 +12,19 @@ public class TestMain
 
   public static void main(String[] args)
   {
+    System.out.println(Math.exp(123));
     // Core
-    UnitTest_Agent.doTest();
-    UnitTest_Func.doTest();
-    UnitTest_Optimizer.doTest();
+    // UnitTest_Agent.doTest();
+    // UnitTest_Func.doTest();
+    // UnitTest_Optimizer.doTest();
 
     // Math
-    UnitTest_Math.doTest();
+    // UnitTest_Math.doTest();
 
     // Utils
     UnitTest_JNum.doTest();
 
     // Optimizers
-    UnitTest_EPO.doTest();
+    // UnitTest_EPO.doTest();
   }
 }

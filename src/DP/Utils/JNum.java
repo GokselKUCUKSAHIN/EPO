@@ -596,7 +596,7 @@ public class JNum
       int colFirst = firstArray[0].length;
       int rowSecond = secondArray.length;
       int colSecond = secondArray[0].length;
-      if (rowFirst > 1 && colFirst > 1 && rowSecond > 1 && colSecond > 1 && rowFirst == rowFirst && colFirst == colSecond)
+      if (rowFirst > 1 && colFirst > 1 && rowSecond > 1 && colSecond > 1 && rowFirst == rowSecond && colFirst == colSecond)
       {
         return true;
       } else
@@ -605,5 +605,48 @@ public class JNum
       }
     }
     throw new NullPointerException("`firstArray` or `secondArray` is null");
+  }
+
+  // isEquals
+
+  public static boolean isEquals(double[] arrFirst, double[] arrSecond)
+  {
+    if (arrFirst != null && arrSecond != null && arrFirst.length == arrSecond.length)
+    {
+      for (int i = 0; i < arrFirst.length; i++)
+      {
+        if (arrFirst[i] != arrSecond[i])
+        {
+          return false;
+        }
+      }
+      return true;
+    } else
+    {
+      return false;
+    }
+  }
+
+  public static boolean isEquals(double[][] arrFirst, double[][] arrSecond)
+  {
+    try
+    {
+      if (checkArraySize(arrFirst, arrSecond))
+      {
+        for (int i = 0; i < arrFirst.length; i++)
+        {
+          if (!isEquals(arrFirst[i], arrSecond[i]))
+          {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
+    catch (Exception ex)
+    {
+      return false;
+    }
+    return false;
   }
 }
