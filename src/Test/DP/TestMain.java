@@ -23,6 +23,6 @@ public class TestMain
         UnitTest_JNum.doTest();
 
         // Optimizers
-        //UnitTest_EPO.doTest();
+        UnitTest_EPO.doTest();
     }
 }

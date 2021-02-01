@@ -89,7 +89,7 @@ public class EPO extends Optimizer
 
       // Calculates the avoidance coefficient (Eq. 9)
       // A = 2 * (T_p + P_grid) * r1 - T_p
-      final double[][] A = JNum.sub(JNum.mult(JNum.sum(P_grid, T_p), 2 * r1), T_p);
+      final double[][] A = JNum.transpose(JNum.sub(JNum.mult(JNum.sum(P_grid, T_p), 2 * r1), T_p));
 
       // Calculates the social forces of emperor penguin (Eq. 12)
       // S = (np.fabs(self.f * np.exp(-iteration / self.l) - np.exp(-iteration))) ** 2
@@ -98,16 +98,21 @@ public class EPO extends Optimizer
       // Calculates the distance between current agent and emperor penguin (Eq. 8)
       // D_ep = np.fabs(S * best_agent.position - C * agent.position)
       //final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
-      double[][] multResult1 = JNum.mult(bestAgent.getPositions(), S);
+      double[][] bestAgentTranspose = JNum.transpose(bestAgent.getPositions());
+      double[][] multResult1 = JNum.mult(bestAgentTranspose, S);
       //System.out.println(JNum.printArray(C));
       //System.out.println(JNum.print2DArray(agent.getPositions()));
-      double[][] multResult2 = JNum.mult(agent.getPositions(), C);
+      double[][] agentsTranspose = JNum.transpose(agent.getPositions());
+      double[][] multResult2 = JNum.mult(agentsTranspose, C);
       double[][] subRes = JNum.sub(multResult1, multResult2);
       final double[][] D_ep = JNum.fabs(subRes);
 
       // Updates current agent's position (Eq. 13)
       // agent.position = best_agent.position - A * D_ep
-      agent.setPositions(JNum.sub(bestAgent.getPositions(), JNum.mult(A, D_ep)));
+      double[][] multResult3 = JNum.mult(A, D_ep);
+      double[][] subRes2 = JNum.sub(bestAgentTranspose, multResult3);
+      //
+      agent.setPositions(JNum.transpose(subRes2));
     }
   }
 

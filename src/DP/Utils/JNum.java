@@ -112,6 +112,28 @@ public class JNum
     }
   }
 
+  public static double[][] transpose(@NotNull double[][] array)
+  {
+    int row = array.length;
+    int col = array[0].length;
+    if (row > 0 && col > 0)
+    {
+      double[][] result = new double[col][row];
+      for (int i = 0; i < row; i++)
+      {
+        for (int j = 0; j < col; j++)
+        {
+          result[j][i] = array[i][j];
+        }
+      }
+      return result;
+    } else
+    {
+      throw new NonPositiveSizeException("`array` should have minimum 1 item");
+    }
+  }
+
+
   public static double[][] converToRowMatrix(@NotNull double[] array)
   {
     if (array.length > 0)
@@ -481,44 +503,114 @@ public class JNum
     return mult(array, number);
   }
 
-  // CHECK
-
   // SUM
 
-  public static double[] sum(double[] array, double number)
+  public static double[][] sum(@NotNull double[][] firstArray, @NotNull double[][] secondArray)
   {
-    if (array != null)
+    Shape shAr1 = new Shape(firstArray);
+    Shape shAr2 = new Shape(secondArray);
+    int mode = Shape.getMode(shAr1, shAr2);
+    if (mode == -1)
     {
-      if (array.length > 0)
-      {
-        double[] filledArray = fill(array.length, number);
-        return sum(array, filledArray);
-      } else
-      {
-        throw new NonPositiveSizeException("`array` size should > 0");
-      }
+      // Size doesn't match throw exception
+      throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
     } else
     {
-      throw new NullPointerException("`array` is null");
+      // Null safe object
+      double[][] result = new double[0][0];
+      switch (mode)
+      {
+        case 0:
+        {
+          // AxB == AxB
+          result = new double[shAr1.row][shAr1.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = firstArray[i][j] + secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 1:
+        {
+          // 1xB and ZxB
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr2.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = firstArray[0][j] + secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 2:
+        {
+          // Ax1 and AxZ
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr2.col; j++)
+            {
+              result[i][j] = firstArray[i][0] + secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 3:
+        case 4:
+        case 5:
+        {
+          // if mode 3 swap arrays and turn into mode 1
+          // if mode 4 swap arrays and turn into mode 2
+          return sum(secondArray, firstArray);
+        }
+        case 6:
+        {
+          result = new double[shAr1.row][shAr2.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr2.col; j++)
+            {
+              result[i][j] = firstArray[i][0] + secondArray[0][j];
+            }
+          }
+          break;
+        }
+        default:
+          break;
+      }
+      return result;
     }
   }
 
-  public static double[][] sum(double[][] array, double number)
+  public static double[][] sum(@NotNull double[][] array, double number)
   {
-    if (array != null)
+    if (array.length > 0 && array[0].length > 0)
     {
-      if (array.length > 0 && array[0].length > 0)
-      {
-        double[][] filledArray = fill(array.length, array[0].length, number);
-        return sum(array, filledArray);
-      } else
-      {
-        throw new NonPositiveSizeException("`array` size should > 0");
-      }
+      double[][] filledArray = fill(array.length, array[0].length, number);
+      return sum(array, filledArray);
     } else
     {
-      throw new NullPointerException("`array` is null");
+      throw new NonPositiveSizeException("`array` size should > 0");
     }
+  }
+
+  public static double[][] sum(double number, double[][] array)
+  {
+    return sum(array, number);
+  }
+
+  public static double[][] sum(double[][] firstArray, double[] secondArray)
+  {
+    return sum(firstArray, converToRowMatrix(secondArray));
+  }
+
+  public static double[][] sum(double[] firstArray, double[][] secondArray)
+  {
+    return sum(secondArray, firstArray);
   }
 
   public static double[] sum(double[] firstArray, double[] secondArray)
@@ -536,35 +628,175 @@ public class JNum
     return new double[0];
   }
 
-  public static double[][] sum(double[][] firstArray, double[][] secondArray)
+  public static double[] sum(@NotNull double[] array, double number)
   {
-    if (checkArraySize(firstArray, secondArray))
+    if (array != null)
     {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      double[][] result = new double[rowFirst][colFirst];
-      for (int i = 0; i < rowFirst; i++)
+      if (array.length > 0)
       {
-        for (int j = 0; j < colFirst; j++)
-        {
-          result[i][j] = firstArray[i][j] + secondArray[i][j];
-        }
+        double[] filledArray = fill(array.length, number);
+        return sum(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
       }
-      return result;
+    } else
+    {
+      throw new NullPointerException("`array` is null");
     }
-    return new double[0][0];
+  }
+
+  public static double[] sum(double number, @NotNull double[] array)
+  {
+    return sum(array, number);
   }
 
   // SUBTRACT
 
-  public static double[] sub(double[] array, double number)
+  public static double[][] reverse(@NotNull double[][] array)
   {
-    return sum(array, -1 * number);
+    int row = array.length;
+    int col = array[0].length;
+    if (row > 0 && col > 0)
+    {
+      double[][] result = new double[row][col];
+      for (int i = 0; i < row; i++)
+      {
+        for (int j = 0; j < col; j++)
+        {
+          result[i][j] = array[i][j] * -1;
+        }
+      }
+      return result;
+    } else
+    {
+      throw new NonPositiveSizeException("`array` should have minimum 1 item");
+    }
   }
 
-  public static double[][] sub(double[][] array, double number)
+  public static double[] reverse(@NotNull double[] array)
   {
-    return sum(array, -1 * number);
+    int row = array.length;
+    if (row > 0)
+    {
+      double[] result = new double[row];
+      for (int i = 0; i < row; i++)
+      {
+        result[i] = array[i] * -1;
+      }
+      return result;
+    } else
+    {
+      throw new NonPositiveSizeException("`array` should have minimum 1 item");
+    }
+  }
+
+  // subIDE
+
+  public static double[][] sub(@NotNull double[][] firstArray, @NotNull double[][] secondArray)
+  {
+    Shape shAr1 = new Shape(firstArray);
+    Shape shAr2 = new Shape(secondArray);
+    int mode = Shape.getMode(shAr1, shAr2);
+    if (mode == -1)
+    {
+      // Size doesn't match throw exception
+      throw new SizeMismatchException("`firstArray` and 'secondArray' should be same size");
+    } else
+    {
+      // Null safe object
+      double[][] result = new double[0][0];
+      switch (mode)
+      {
+        case 0:
+        {
+          // AxB == AxB
+          result = new double[shAr1.row][shAr1.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = firstArray[i][j] - secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 1:
+        {
+          // 1xB and ZxB
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr2.row; i++)
+          {
+            for (int j = 0; j < shAr1.col; j++)
+            {
+              result[i][j] = firstArray[0][j] - secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 2:
+        {
+          // Ax1 and AxZ
+          result = new double[shAr2.row][shAr2.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr2.col; j++)
+            {
+              result[i][j] = firstArray[i][0] - secondArray[i][j];
+            }
+          }
+          break;
+        }
+        case 3:
+        case 4:
+        case 5:
+        {
+          return reverse(sub(secondArray, firstArray));
+        }
+        case 6:
+        {
+          result = new double[shAr1.row][shAr2.col];
+          for (int i = 0; i < shAr1.row; i++)
+          {
+            for (int j = 0; j < shAr2.col; j++)
+            {
+              result[i][j] = firstArray[i][0] - secondArray[0][j];
+            }
+          }
+          break;
+        }
+        default:
+          break;
+      }
+      return result;
+    }
+  }
+
+  public static double[][] sub(@NotNull double[][] array, double number)
+  {
+    if (array.length > 0 && array[0].length > 0)
+    {
+      double[][] filledArray = fill(array.length, array[0].length, number);
+      return sub(array, filledArray);
+    } else
+    {
+      throw new NonPositiveSizeException("`array` size should > 0");
+    }
+  }
+
+  public static double[][] sub(double number, double[][] array)
+  {
+    return reverse(sub(array, number));
+  }
+
+  public static double[][] sub(double[][] firstArray, double[] secondArray)
+  {
+    return sub(firstArray, converToRowMatrix(secondArray));
+  }
+
+  public static double[][] sub(double[] firstArray, double[][] secondArray)
+  {
+    return reverse(sub(secondArray, firstArray));
   }
 
   public static double[] sub(double[] firstArray, double[] secondArray)
@@ -582,23 +814,27 @@ public class JNum
     return new double[0];
   }
 
-  public static double[][] sub(double[][] firstArray, double[][] secondArray)
+  public static double[] sub(@NotNull double[] array, double number)
   {
-    if (checkArraySize(firstArray, secondArray))
+    if (array != null)
     {
-      int rowFirst = firstArray.length;
-      int colFirst = firstArray[0].length;
-      double[][] result = new double[rowFirst][colFirst];
-      for (int i = 0; i < rowFirst; i++)
+      if (array.length > 0)
       {
-        for (int j = 0; j < colFirst; j++)
-        {
-          result[i][j] = firstArray[i][j] - secondArray[i][j];
-        }
+        double[] filledArray = fill(array.length, number);
+        return sub(array, filledArray);
+      } else
+      {
+        throw new NonPositiveSizeException("`array` size should > 0");
       }
-      return result;
+    } else
+    {
+      throw new NullPointerException("`array` is null");
     }
-    return new double[0][0];
+  }
+
+  public static double[] sub(double number, @NotNull double[] array)
+  {
+    return reverse(sub(array, number));
   }
 
 
@@ -639,9 +875,6 @@ public class JNum
     }
     throw new NullPointerException("`firstArray` or `secondArray` is null");
   }
-
-
-  // SAFE TO STORE
 
   // ZEROS
   public static double[] zeros(int n_variables)
