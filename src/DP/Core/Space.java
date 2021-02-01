@@ -22,7 +22,7 @@ public abstract class Space
   //
   private Agent bestAgent;
   //
-  private ArrayList<? extends Agent> agents; // Agent of Child of Agent
+  private ArrayList<Agent> agents; // Agent of Child of Agent
 
   public Space()
   {
@@ -37,7 +37,7 @@ public abstract class Space
     this.setN_Iterations(n_Iterations);
     //
     setBuilt(false);
-    setBestAgent(new Agent());
+    setBestAgent(new Agent(getN_Variables(),getN_Dimensions()));
   }
 
   public int getN_Agents()
@@ -104,12 +104,12 @@ public abstract class Space
     }
   }
 
-  public ArrayList<? extends Agent> getAgents()
+  public ArrayList<Agent> getAgents()
   {
     return this.agents;
   }
 
-  public void setAgents(ArrayList<? extends Agent> agents)
+  public void setAgents(ArrayList<Agent> agents)
   {
     if (agents != null)
     {
@@ -190,10 +190,12 @@ public abstract class Space
     setUb(ub);
     createAgents();
     setBuilt(true);
+    /*
     System.out.printf("Agents: %d | Size: (%d, %d) | Iterations: %d |\n Lower Bound: %s | Upper Bound: %s | Built: %s.\n",
         getN_Agents(), getN_Variables(), getN_Dimensions(),
         getN_Iterations(), JNum.printArray(getLb()), JNum.printArray(getUb()),
         isBuilt()); // TODO Change it with LOG
+     */
   }
 
   public void createAgents()

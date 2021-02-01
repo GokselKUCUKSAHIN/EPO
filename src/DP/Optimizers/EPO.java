@@ -79,7 +79,9 @@ public class EPO extends Optimizer
 
       // Calculates the polygon grid accuracy (Eq. 10)
       // P_grid = np.fabs(best_agent.position - agent.position)
-      final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
+      //final double[][] P_grid = JNum.fabs(JNum.sub(bestAgent.getPositions(), agent.getPositions()));
+      double[][] subResult = JNum.sub(bestAgent.getPositions(), agent.getPositions());
+      final double[][] P_grid = JNum.fabs(subResult);
 
       // Generates a uniform random number and the `C` coefficient
       double r1 = Random.getUnifiedRandomNumber();
@@ -87,7 +89,7 @@ public class EPO extends Optimizer
 
       // Calculates the avoidance coefficient (Eq. 9)
       // A = 2 * (T_p + P_grid) * r1 - T_p
-      final double[][] A = JNum.sub(JNum.mult(JNum.sum(P_grid, T_p), 2 * r1), T_p);
+      final double[][] A = JNum.transpose(JNum.sub(JNum.mult(JNum.sum(P_grid, T_p), 2 * r1), T_p));
 
       // Calculates the social forces of emperor penguin (Eq. 12)
       // S = (np.fabs(self.f * np.exp(-iteration / self.l) - np.exp(-iteration))) ** 2
@@ -95,16 +97,27 @@ public class EPO extends Optimizer
 
       // Calculates the distance between current agent and emperor penguin (Eq. 8)
       // D_ep = np.fabs(S * best_agent.position - C * agent.position)
-      final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
+      //final double[][] D_ep = JNum.fabs(JNum.sub(JNum.mult(bestAgent.getPositions(), S), JNum.mult(agent.getPositions(), C)));
+      double[][] bestAgentTranspose = JNum.transpose(bestAgent.getPositions());
+      double[][] multResult1 = JNum.mult(bestAgentTranspose, S);
+      //System.out.println(JNum.printArray(C));
+      //System.out.println(JNum.print2DArray(agent.getPositions()));
+      double[][] agentsTranspose = JNum.transpose(agent.getPositions());
+      double[][] multResult2 = JNum.mult(agentsTranspose, C);
+      double[][] subRes = JNum.sub(multResult1, multResult2);
+      final double[][] D_ep = JNum.fabs(subRes);
 
       // Updates current agent's position (Eq. 13)
       // agent.position = best_agent.position - A * D_ep
-      agent.setPositions(JNum.sub(bestAgent.getPositions(), JNum.mult(A, D_ep)));
+      double[][] multResult3 = JNum.mult(A, D_ep);
+      double[][] subRes2 = JNum.sub(bestAgentTranspose, multResult3);
+      //
+      agent.setPositions(JNum.transpose(subRes2));
     }
   }
 
   @Override
-  public void run(Space space, Func function, boolean storeBestOnly, Func preEvalution)
+  public void run(Space space, Func function, boolean storeBestOnly)
   {
      /*
      Runs the optimization pipeline.
@@ -112,11 +125,21 @@ public class EPO extends Optimizer
            space (Space): A Space object that will be evaluated.
            function (Function): A Function object that will be used as the objective function.
            store_best_only (bool): If True, only the best agent of each iteration is stored in History.
-           pre_evaluation (callable): This function is executed before evaluating the function being optimized.
-       Returns:
-           A History object holding all agents' positions and fitness achieved during the task.
       */
 
+    for (int t = 0; t < space.getN_Iterations(); t++)
+    {
+      // Updating agents
+      this.update(space.getAgents(), space.getBestAgent(), t, space.getN_Iterations());
 
+      // Checking if agents meet the bounds limits
+      space.clipLimits();
+
+      // After the update, we need to re-evaluate the search space
+      this.evaluate(space, function);
+      System.out.printf("Fitness: %6.10f\n", space.getBestAgent().getFit());
+      double[][] bestPosition = space.getBestAgent().getPositions();
+      System.out.printf("Position:\n%s\n", JNum.print2DArray(bestPosition));
+    }
   }
 }
