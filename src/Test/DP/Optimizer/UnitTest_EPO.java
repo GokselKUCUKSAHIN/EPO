@@ -68,18 +68,7 @@ public class UnitTest_EPO
     return sum;
   }
 
-  public static double f5(double[][] arg)
-  {
-    double sum = 0.0;
-    for (int i = 0; i < arg.length; i++)
-    {
-      for (int j = 0; j < arg[0].length - 1; j++)
-      {
-        sum += 100 * Math.pow((arg[i][j + 1] - Math.pow(arg[i][j], 2)), 2) + Math.pow(arg[i][j] - 1, 2);
-      }
-    }
-    return sum;
-  }
+
   public static double cubeplus5(double[][] args)
   {
     double sum = 0;
@@ -93,12 +82,26 @@ public class UnitTest_EPO
     return sum;
   }
 
+  public static double benchmark(double[][] arg)
+  {
+    double sum = 0.0;
+    for (int i = 0; i < arg.length; i++)
+    {
+      for (int j = 0; j < arg[0].length - 1; j++)
+      {
+        sum += 100 * Math.pow((arg[i][j + 1] - Math.pow(arg[i][j], 2)), 2) + Math.pow(arg[i][j] - 1, 2);
+      }
+    }
+    return sum;
+  }
+
   private static void test_epo_run()
   {
-    Function<double[][], Double> square = UnitTest_EPO::square;
+    Function<double[][], Double> square = UnitTest_EPO::benchmark;
     Func func = new Func(square);
     EPO myEPO = new EPO();
-    SearchSpace mySpace = new SearchSpace(10, 4, 1000, JNum.zeros(4), JNum.fill(4, 10));
+    SearchSpace mySpace = new SearchSpace(10, 2, 50,
+        JNum.zeros(2), JNum.fill(2, 10));
     myEPO.run(mySpace, func, false);
     for (Agent agent : mySpace.getAgents())
     {
@@ -108,9 +111,8 @@ public class UnitTest_EPO
     System.out.println("--BEST AGENT--");
     System.out.println(mySpace.getBestAgent().getFit() + "\n" + JNum.print2DArray(mySpace.getBestAgent().getPositions()));
 
-    System.out.println(f5(mySpace.getBestAgent().getPositions()));
+    System.out.println(benchmark(mySpace.getBestAgent().getPositions()));
 
-    //System.out.println(f5(new double[][]{{1.583393946696063}, {3.5969099861238817}}));
   }
 
 
